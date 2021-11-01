@@ -48,8 +48,8 @@
 
 		ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 		
-		function update() {
-			var paramsNSFW = {
+		function update() { // Update Google Sheets
+			var paramsNSFW = { // For NSFW
 				spreadsheetId: ssID,
 				
 				range: 'Sheet1!A:A',
@@ -59,25 +59,25 @@
 			
 			
 			
-			var paramsSFW = {
+			var paramsSFW = { // For SFW
 				spreadsheetId: ssID,
 				
-				range: 'Sheet1!A:B',
+				range: 'Sheet1!A1:B1',
 				
 				valueInputOption: 'RAW',
 			};
 			
 			// Append img link to google sheets
-			var valueRangeBody = {
+			var valueRangeBody = { // For NSFW
 				"values": [[imglink]]
 			};
-			var valueRangeBodySafe = {
+			var valueRangeBodySafe = { // For SFW
 				"values": [[null,imglink]]
 			};
 			
 			if (imglink != '') {
 				nsfwCheck = document.getElementById("nsfwCheck");
-				if (nsfwCheck.checked) {
+				if (nsfwCheck.checked) { // If NSFW
 					var request = gapi.client.sheets.spreadsheets.values.append(paramsNSFW, valueRangeBody);
 					request.then(function(response) {
 					
@@ -85,7 +85,7 @@
 					}, function(reason) {
 						console.error('error: ' + reason.result.error.message);
 					});
-				} else {
+				} else { // If not NSFW
 					var request = gapi.client.sheets.spreadsheets.values.append(paramsSFW, valueRangeBodySafe);
 					request.then(function(response) {
 					
@@ -134,7 +134,7 @@
 			
 			nsfwCheck = document.getElementById("nsfwCheck");
 			if (nsfwCheck.checked) {
-				var request = gapi.client.sheets.spreadsheets.values.get(paramsNSFW);
+				var request = gapi.client.sheets.spreadsheets.values.get(paramsNSFW); // Load NSFW Images
 				request.then(function(response) {
 					let i = 0;
 					while (i < response.result.values.length) {
@@ -151,7 +151,7 @@
 					console.error('error: ' + reason.result.error.message);
 				});
 			} else {
-				var request = gapi.client.sheets.spreadsheets.values.get(paramsSFW);
+				var request = gapi.client.sheets.spreadsheets.values.get(paramsSFW); // Load Safe Images
 				request.then(function(response) {
 					let i = 0;
 					while (i < response.result.values.length) {
