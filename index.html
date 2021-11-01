@@ -157,7 +157,9 @@
 					while (i < response.result.values.length) {
 						// Add images to website1
 						var imgs = document.createElement("img");
-						imgs.src = response.result.values[i][0]
+						if (response.result.values[i][0] != null {
+							imgs.src = response.result.values[i][0]
+						}
 						var src = document.getElementById("body");
 						src.appendChild(imgs);
 						i++;
