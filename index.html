@@ -27,12 +27,6 @@
                 body: formdata
             }).then(data => data.json()).then(data => {
                 img.src = data.data.link
-				
-				var imgs = document.createElement("img");
-				imgs.src = data.data.link
-				var src = document.getElementById("header");
-				src.appendChild(imgs);
-				
                 url.innerText = data.data.link
 				imglink = data.data.link
             })
@@ -43,6 +37,11 @@
 		ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 		
 		function update() {
+			var imgs = document.createElement("img");
+			imgs.src = data.data.link
+			var src = document.getElementById("header");
+			src.appendChild(imgs);
+			
 			var params = {
 				spreadsheetId: ssID,
 				
