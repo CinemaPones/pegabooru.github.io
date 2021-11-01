@@ -4,7 +4,11 @@
     <img src="https://i.imgur.com/U7afLiO.png" id="img" height="200px">
     <br />
     <input type="file" id="file">
-    <br />
+    <br/>
+	<br/>
+	<button id="update-button" onclick="update()">Add Image</button>
+	<button id="update-button" onclick="addImgs()">Load Images</button>
+	<br/>
 	<strong>
 		<p id="url"></p>
 	</strong>
@@ -146,11 +150,7 @@
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
-	
-	<button id="update-button" onclick="update()">Add Image</button>
-	<button id="update-button" onclick="addImgs()">Load Images</button>
-	<br/>
-	<br/>
+
     <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
     <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
 </body>
