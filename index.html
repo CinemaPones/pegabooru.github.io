@@ -10,6 +10,27 @@
     </strong>
 
     <script>
+		const file = document.getElementById("file")
+        const img = document.getElementById("img")
+        const url = document.getElementById("url")
+		imglink = ''
+        file.addEventListener("change", ev => {
+            const formdata = new FormData()
+            formdata.append("image", ev.target.files[0])
+            fetch("https://api.imgur.com/3/image/", {
+                method: "post",
+                headers: {
+                    Authorization: "Client-ID 158a87bad02b57c"
+                },
+                body: formdata
+            }).then(data => data.json()).then(data => {
+                img.src = data.data.link
+                url.innerText = data.data.link
+				imglink = data.data.link
+            })
+        })
+	
+	
 
 		ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 		
@@ -23,7 +44,7 @@
 			};
 			
 			var valueRangeBody = {
-				"values": [["hello"]]
+				"values": [[imglink]]
 			};
 			
 			var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
@@ -99,24 +120,6 @@
 		function handleSignOutClick(event) {
 		  gapi.auth2.getAuthInstance().signOut();
 		}
-
-		const file = document.getElementById("file")
-        const img = document.getElementById("img")
-        const url = document.getElementById("url")
-        file.addEventListener("change", ev => {
-            const formdata = new FormData()
-            formdata.append("image", ev.target.files[0])
-            fetch("https://api.imgur.com/3/image/", {
-                method: "post",
-                headers: {
-                    Authorization: "Client-ID 158a87bad02b57c"
-                },
-                body: formdata
-            }).then(data => data.json()).then(data => {
-                img.src = data.data.link
-                url.innerText = data.data.link
-            })
-        })
     </script>
     <script async defer src="https://apis.google.com/js/api.js"
       onload="this.onload=function(){};handleClientLoad()"
