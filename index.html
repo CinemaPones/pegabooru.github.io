@@ -14,7 +14,7 @@
 		};
 		
 		var valueRangeBody = {
-		
+			"values": [["hello"]]
 		};
 		
 		var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
@@ -24,10 +24,6 @@
 		}, function(reason) {
 			console.error('error: ' + reason.result.error.message);
 		});
-		
-		var valueRangeBody = {
-			"values": [["hello"]]
-		};
 		
 	}
 	
