@@ -62,11 +62,9 @@
 			var paramsSFW = {
 				spreadsheetId: ssID,
 				
-				range: 'Sheet1!A:B',
+				range: 'Sheet1!A:A',
 				
 				valueInputOption: 'RAW',
-				
-				insertDataOption: 'INSERT_ROWS',
 			};
 			
 			// Append img link to google sheets
@@ -74,7 +72,7 @@
 				"values": [[imglink]]
 			};
 			var valueRangeBodySafe = {
-				"values": [[imglink]]
+				"values": [[null,imglink]]
 			};
 			
 			if (imglink != '') {
