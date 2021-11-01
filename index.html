@@ -71,7 +71,7 @@
 				console.error('error: ' + reason.result.error.message);
 			});
 			
-			var request = gapi.client.sheets.spreadsheets.values.get(params);
+			var request = gapi.client.sheets.spreadsheets.values.get(params2);
 			request.then(function(response) {
 				let i = 0;
 				while (i < response.result.values.length) {
