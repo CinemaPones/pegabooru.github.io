@@ -45,12 +45,6 @@
 				valueInputOption: 'RAW',
 			};
 			
-			var params2 = {
-				spreadsheetId: ssID,
-				
-				range: 'Sheet1',
-			};
-			
 			// Append img link to google sheets
 			var valueRangeBody = {
 				"values": [[imglink]]
@@ -63,25 +57,6 @@
 			}, function(reason) {
 				console.error('error: ' + reason.result.error.message);
 			});
-			
-			var request = gapi.client.sheets.spreadsheets.values.get(params2);
-			request.then(function(response) {
-				function loadImgs() {
-					let i = 0;
-					while (i < response.result.values.length) {
-						// Add images to website
-						var imgs = document.createElement("img");
-						imgs.src = response.result.values[i][0]
-						var src = document.getElementById("body");
-						src.appendChild(imgs);
-						i++;
-					}
-				}
-				setTimeout(loadImgs, 2000);
-			}, function(reason) {
-				console.error('error: ' + reason.result.error.message);
-			});
-			
 		}
 		
 		function get() {
@@ -99,6 +74,31 @@
 		  }, function(reason) {
 			console.error('error: ' + reason.result.error.message);
 		  });
+		}
+		
+		function addImgs() {
+			var params = {
+				// The ID of the spreadsheet to retrieve data from.
+				spreadsheetId: ssID,
+
+				// The A1 notation of the values to retrieve.
+				range: 'Sheet1',
+			};
+			  
+			var request = gapi.client.sheets.spreadsheets.values.get(params);
+			request.then(function(response) {
+				let i = 0;
+				while (i < response.result.values.length) {
+					// Add images to website1
+					var imgs = document.createElement("img");
+					imgs.src = response.result.values[i][0]
+					var src = document.getElementById("body");
+					src.appendChild(imgs);
+					i++;
+				}
+			}, function(reason) {
+				console.error('error: ' + reason.result.error.message);
+			});
 		}
 
 		function initClient() {
@@ -144,6 +144,7 @@
     <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
     <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
 	<button id="update-button" onclick="update()">Add</button>
+	<button id="update-button" onclick="addImgs()">Load Images</button>
 </body>
 </html>
 	
