@@ -6,7 +6,7 @@
     <input type="file" id="file">
     <br />
 	<center>
-		<div id="header"></div>
+		<div id="body"></div>
 	</center>
     <strong>
         <p id="url"></p>
@@ -37,9 +37,11 @@
 		ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 		
 		function update() {
+		
+			// Add images to website
 			var imgs = document.createElement("img");
 			imgs.src = imglink
-			var src = document.getElementById("header");
+			var src = document.getElementById("body");
 			src.appendChild(imgs);
 			
 			var params = {
@@ -50,6 +52,7 @@
 				valueInputOption: 'RAW',
 			};
 			
+			// Append img link to google sheets
 			var valueRangeBody = {
 				"values": [[imglink]]
 			};
@@ -67,35 +70,25 @@
 		function get() {
 		  var params = {
 			// The ID of the spreadsheet to retrieve data from.
-			spreadsheetId: ssID,  // TODO: Update placeholder value.
+			spreadsheetId: ssID,
 
 			// The A1 notation of the values to retrieve.
-			range: 'Sheet1',  // TODO: Update placeholder value.
-
-			// How values should be represented in the output.
-			// The default render option is ValueRenderOption.FORMATTED_VALUE.
-			//valueRenderOption: '',  // TODO: Update placeholder value.
-
-			// How dates, times, and durations should be represented in the output.
-			// This is ignored if value_render_option is
-			// FORMATTED_VALUE.
-			// The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
-			//dateTimeRenderOption: '',  // TODO: Update placeholder value.
+			range: 'Sheet1',
 		  };
 
 		  var request = gapi.client.sheets.spreadsheets.values.get(params);
 		  request.then(function(response) {
-			// TODO: Change code below to process the `response` object:
 			console.log(response.result);
+			console.log("test: "+response.result[0]);
 		  }, function(reason) {
 			console.error('error: ' + reason.result.error.message);
 		  });
 		}
 
 		function initClient() {
-		  var API_KEY = 'AIzaSyAkVbjuvW-mgtXNI9qGREX49pJXwNxRm2s';  // TODO: Update placeholder with desired API key.
+		  var API_KEY = 'AIzaSyAkVbjuvW-mgtXNI9qGREX49pJXwNxRm2s';
 
-		  var CLIENT_ID = '635991284637-jurkmrm6prrndrq7muu7qq1eag0per37.apps.googleusercontent.com';  // TODO: Update placeholder with desired client ID.
+		  var CLIENT_ID = '635991284637-jurkmrm6prrndrq7muu7qq1eag0per37.apps.googleusercontent.com';1
 		  
 		  var SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
 
