@@ -141,11 +141,9 @@
 						// Add images to website1
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null) {
-							var w = window.innerWidth;
-							var h = window.innerHeight;
 							imgs.src = response.result.values[i][0]
-							imgs.width = w;
-							imgs.height = h;
+							imgs.style.width = '100%';
+							imgs.style.height = 'auto';
 						}
 						var src = document.getElementById("body");
 						src.appendChild(imgs);
@@ -162,11 +160,9 @@
 						// Add images to website1
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null) {
-							var w = $(window).width();
-							var h = $(window).height();
 							imgs.src = response.result.values[i][0]
-							imgs.width = w;
-							imgs.height = h;
+							imgs.style.width = '100%';
+							imgs.style.height = 'auto';
 						}
 						var src = document.getElementById("body");
 						src.appendChild(imgs);
