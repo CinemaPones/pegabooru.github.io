@@ -11,6 +11,7 @@
 	<br/>
 	<button id="update-button" onclick="update()">Add Image</button>
 	<button id="update-button" onclick="addImgs()">Load Images</button>
+	<b>NSFW:</b> <input type="checkbox" id="nsfwCheck">
 	<br/>
 	<strong>
 		<p id="url"></p>
@@ -89,28 +90,54 @@
 		
 		function addImgs() {
 			document.getElementById('body').innerHTML = "";
-			var params = {
+			var paramsNSFW = {
 				// The ID of the spreadsheet to retrieve data from.
 				spreadsheetId: ssID,
 
 				// The A1 notation of the values to retrieve.
-				range: 'Sheet1',
+				range: 'Sheet1!A:A',
 			};
-			  
-			var request = gapi.client.sheets.spreadsheets.values.get(params);
-			request.then(function(response) {
-				let i = 0;
-				while (i < response.result.values.length) {
-					// Add images to website1
-					var imgs = document.createElement("img");
-					imgs.src = response.result.values[i][0]
-					var src = document.getElementById("body");
-					src.appendChild(imgs);
-					i++;
-				}
-			}, function(reason) {
-				console.error('error: ' + reason.result.error.message);
-			});
+			
+			var paramsSFW = {
+				// The ID of the spreadsheet to retrieve data from.
+				spreadsheetId: ssID,
+
+				// The A1 notation of the values to retrieve.
+				range: 'Sheet1!B:B',
+			};
+			
+			nsfwCheck = document.getElementById("nsfwCheck");
+			if (nsfwCheck.checked) {
+				var request = gapi.client.sheets.spreadsheets.values.get(paramsNSFW);
+				request.then(function(response) {
+					let i = 0;
+					while (i < response.result.values.length) {
+						// Add images to website1
+						var imgs = document.createElement("img");
+						imgs.src = response.result.values[i][0]
+						var src = document.getElementById("body");
+						src.appendChild(imgs);
+						i++;
+					}
+				}, function(reason) {
+					console.error('error: ' + reason.result.error.message);
+				});
+			} else {
+				var request = gapi.client.sheets.spreadsheets.values.get(paramsSFW);
+				request.then(function(response) {
+					let i = 0;
+					while (i < response.result.values.length) {
+						// Add images to website1
+						var imgs = document.createElement("img");
+						imgs.src = response.result.values[i][0]
+						var src = document.getElementById("body");
+						src.appendChild(imgs);
+						i++;
+					}
+				}, function(reason) {
+					console.error('error: ' + reason.result.error.message);
+				});
+			}
 		}
 
 		function initClient() {
