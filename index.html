@@ -37,12 +37,6 @@
 		ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 		
 		function update() {
-		
-			// Add images to website
-			var imgs = document.createElement("img");
-			imgs.src = imglink
-			var src = document.getElementById("body");
-			src.appendChild(imgs);
 			
 			var params = {
 				spreadsheetId: ssID,
@@ -59,8 +53,25 @@
 			
 			var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
 			request.then(function(response) {
-			
 				console.log(response.result);
+			}, function(reason) {
+				console.error('error: ' + reason.result.error.message);
+			});
+			
+			var request = gapi.client.sheets.spreadsheets.values.get(params);
+			request.then(function(response) {
+				console.log(response.result);
+				
+				// Add images to website
+				let i = 0;
+				while (i < response.result.values.length) {
+					var imgs = document.createElement("img");
+					imgs.src = response.result.values[i][0];
+					var src = document.getElementById("body");
+					src.appendChild(imgs);
+					i++;
+				}
+				
 			}, function(reason) {
 				console.error('error: ' + reason.result.error.message);
 			});
@@ -79,11 +90,6 @@
 		  var request = gapi.client.sheets.spreadsheets.values.get(params);
 		  request.then(function(response) {
 			console.log(response.result);
-			let i = 0;
-			while (i < response.result.values.length) {
-				console.log("test: "+response.result.values[i][0]);
-				i++;
-			}
 		  }, function(reason) {
 			console.error('error: ' + reason.result.error.message);
 		  });
