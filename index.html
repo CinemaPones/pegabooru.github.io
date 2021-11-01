@@ -57,17 +57,24 @@
 				valueInputOption: 'RAW',
 			};
 			
+			
+			
 			var paramsSFW = {
 				spreadsheetId: ssID,
 				
-				range: 'Sheet1!B:B',
+				range: 'Sheet1!A:B',
 				
 				valueInputOption: 'RAW',
+				
+				insertDataOption: 'INSERT_ROWS',
 			};
 			
 			// Append img link to google sheets
 			var valueRangeBody = {
 				"values": [[imglink]]
+			};
+			var valueRangeBodySafe = {
+				"values": [[null, imglink]]
 			};
 			
 			if (imglink != '') {
@@ -81,7 +88,7 @@
 						console.error('error: ' + reason.result.error.message);
 					});
 				} else {
-					var request = gapi.client.sheets.spreadsheets.values.append(paramsSFW, valueRangeBody);
+					var request = gapi.client.sheets.spreadsheets.values.append(paramsSFW, valueRangeBodySafe);
 					request.then(function(response) {
 					
 						console.log(response.result);
