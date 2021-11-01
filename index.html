@@ -5,6 +5,10 @@
     <br />
     <input type="file" id="file">
     <br />
+	<center>
+		<p id="info"></p>
+		<div id="images"></div>
+	</center>
     <strong>
         <p id="url"></p>
     </strong>
@@ -14,6 +18,8 @@
         const img = document.getElementById("img")
         const url = document.getElementById("url")
 		imglink = ''
+		var info_el = $(#info),
+			images_el = $("#images");
         file.addEventListener("change", ev => {
             const formdata = new FormData()
             formdata.append("image", ev.target.files[0])
@@ -25,6 +31,7 @@
                 body: formdata
             }).then(data => data.json()).then(data => {
                 img.src = data.data.link
+				$(images_el).append(data.data.link)
                 url.innerText = data.data.link
 				imglink = data.data.link
             })
