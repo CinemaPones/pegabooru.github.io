@@ -96,11 +96,6 @@
 		  var request = gapi.client.sheets.spreadsheets.values.get(params);
 		  request.then(function(response) {
 			console.log(response.result);
-			let i = 0;
-			while (i < response.result.values.length) {
-				console.log("test: "+response.result.values[i][0]);
-				i++;
-			}
 		  }, function(reason) {
 			console.error('error: ' + reason.result.error.message);
 		  });
