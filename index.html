@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-    <!--
-    BEFORE RUNNING:
-    ---------------
-    1. If not already done, enable the Google Sheets API
-       and check the quota for your project at
-       https://console.developers.google.com/apis/api/sheets
-    2. Get access keys for your application. See
-       https://developers.google.com/api-client-library/javascript/start/start-js#get-access-keys-for-your-application
-    3. For additional information on authentication, see
-       https://developers.google.com/sheets/api/quickstart/js#step_2_set_up_the_sample
-    -->
     <script>
-    function makeApiCall() {
+	ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
+	
+	function update() {
+		var params = {
+			speadsheetId: ssID,
+			
+			range: 'Sheet1',
+			
+			valueInputOption: 'RAW',
+		};
+		
+		var valueRangeBody = {
+		
+		};
+		
+		var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
+		request.then(function(response) {
+		
+			console.log(response.result);
+		}, function(reason) {
+			console.error('error: ' + reason.result.error.message);
+		});
+		
+	}
+	
+    function get() {
       var params = {
         // The ID of the spreadsheet to retrieve data from.
-        spreadsheetId: '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE',  // TODO: Update placeholder value.
+        spreadsheetId: ssID,  // TODO: Update placeholder value.
 
         // The A1 notation of the values to retrieve.
         range: 'Sheet1',  // TODO: Update placeholder value.
@@ -45,13 +59,7 @@
       var API_KEY = 'AIzaSyAkVbjuvW-mgtXNI9qGREX49pJXwNxRm2s';  // TODO: Update placeholder with desired API key.
 
       var CLIENT_ID = '635991284637-jurkmrm6prrndrq7muu7qq1eag0per37.apps.googleusercontent.com';  // TODO: Update placeholder with desired client ID.
-
-      // TODO: Authorize using one of the following scopes:
-      //   'https://www.googleapis.com/auth/drive'
-      //   'https://www.googleapis.com/auth/drive.file'
-      //   'https://www.googleapis.com/auth/drive.readonly'
-      //   'https://www.googleapis.com/auth/spreadsheets'
-      //   'https://www.googleapis.com/auth/spreadsheets.readonly'
+	  
       var SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
 
       gapi.client.init({
@@ -71,7 +79,7 @@
 
     function updateSignInStatus(isSignedIn) {
       if (isSignedIn) {
-        makeApiCall();
+        get();
       }
     }
 
@@ -89,6 +97,7 @@
     </script>
     <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
     <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
+	<button id="update-button" onclick="update()">Update</button>
 </body>
 </html>
 	
