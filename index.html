@@ -79,7 +79,7 @@
 					}, function(reason) {
 						console.error('error: ' + reason.result.error.message);
 					});
-				} else:
+				} else {
 					var request = gapi.client.sheets.spreadsheets.values.append(paramsSFW, valueRangeBody);
 					request.then(function(response) {
 					
