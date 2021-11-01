@@ -47,7 +47,7 @@
 				"values": [[imglink]]
 			};
 			
-			var request = gapi.client.sheets.spreadsheets.values.update(params, valueRangeBody);
+			var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
 			request.then(function(response) {
 			
 				console.log(response.result);
@@ -127,7 +127,7 @@
     </script>
     <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
     <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
-	<button id="update-button" onclick="update()">Update</button>
+	<button id="update-button" onclick="update()">Add</button>
 </body>
 </html>
 	
