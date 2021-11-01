@@ -5,17 +5,19 @@
     <br />
     <input type="file" id="file">
     <br />
+	<strong>
+		<p id="url"></p>
+	</strong>
+	<br/>
 	<center>
 		<div id="body"></div>
 	</center>
-    <strong>
-        <p id="url"></p>
-    </strong>
 
     <script>
 		const file = document.getElementById("file")
         const img = document.getElementById("img")
-			
+		imglink = ''
+		
         file.addEventListener("change", ev => {
             const formdata = new FormData()
             formdata.append("image", ev.target.files[0])
@@ -50,13 +52,15 @@
 				"values": [[imglink]]
 			};
 			
-			var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
-			request.then(function(response) {
-			
-				console.log(response.result);
-			}, function(reason) {
-				console.error('error: ' + reason.result.error.message);
-			});
+			if (imglink != '') {
+				var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
+				request.then(function(response) {
+				
+					console.log(response.result);
+				}, function(reason) {
+					console.error('error: ' + reason.result.error.message);
+				});
+			}
 		}
 		
 		function get() {
@@ -141,10 +145,12 @@
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
+	
     <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
     <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
-	<button id="update-button" onclick="update()">Add</button>
-	<button id="update-button" onclick="addImgs()">Load Images</button>
+	<br/>
+	<button id="update-button" onclick="update()">Add Image1</button>
+	<button id="update-button" onclick="addImgs()">Load Images</button>1
 </body>
 </html>
 	
