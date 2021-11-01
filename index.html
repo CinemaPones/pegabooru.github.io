@@ -5,12 +5,13 @@
 		body {background-color: teal;}
 	</style>
     <img src="https://i.imgur.com/U7afLiO.png" id="img" height="200px">
-    <br />
+    <br/>
     <input type="file" id="file">
     <br/>
 	<br/>
 	<button id="update-button" onclick="update()">Add Image</button>
 	<button id="update-button" onclick="addImgs()">Load Images</button>
+	<br/>
 	<b>NSFW:</b> <input type="checkbox" id="nsfwCheck">
 	<br/>
 	<strong>
@@ -47,10 +48,18 @@
 		ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 		
 		function update() {
-			var params = {
+			var paramsNSFW = {
 				spreadsheetId: ssID,
 				
-				range: 'Sheet1',
+				range: 'Sheet1!A:A',
+				
+				valueInputOption: 'RAW',
+			};
+			
+			var paramsNFW = {
+				spreadsheetId: ssID,
+				
+				range: 'Sheet1!B:B',
 				
 				valueInputOption: 'RAW',
 			};
@@ -61,13 +70,24 @@
 			};
 			
 			if (imglink != '') {
-				var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
-				request.then(function(response) {
-				
-					console.log(response.result);
-				}, function(reason) {
-					console.error('error: ' + reason.result.error.message);
-				});
+				nsfwCheck = document.getElementById("nsfwCheck");
+				if (nsfwCheck.checked) {
+					var request = gapi.client.sheets.spreadsheets.values.append(paramsNSFW, valueRangeBody);
+					request.then(function(response) {
+					
+						console.log(response.result);
+					}, function(reason) {
+						console.error('error: ' + reason.result.error.message);
+					});
+				} else:
+					var request = gapi.client.sheets.spreadsheets.values.append(paramsSFW, valueRangeBody);
+					request.then(function(response) {
+					
+						console.log(response.result);
+					}, function(reason) {
+						console.error('error: ' + reason.result.error.message);
+					});				
+				}
 			}
 		}
 		
