@@ -66,15 +66,18 @@
 			
 			var request = gapi.client.sheets.spreadsheets.values.get(params2);
 			request.then(function(response) {
-				let i = 0;
-				while (i < response.result.values.length) {
-					// Add images to website
-					var imgs = document.createElement("img");
-					imgs.src = response.result.values[i][0]
-					var src = document.getElementById("body");
-					src.appendChild(imgs);
-					i++;
+				function loadImgs() {
+					let i = 0;
+					while (i < response.result.values.length) {
+						// Add images to website
+						var imgs = document.createElement("img");
+						imgs.src = response.result.values[i][0]
+						var src = document.getElementById("body");
+						src.appendChild(imgs);
+						i++;
+					}
 				}
+				setTimeout(loadImgs, 2000);
 			}, function(reason) {
 				console.error('error: ' + reason.result.error.message);
 			});
