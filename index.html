@@ -16,13 +16,6 @@
     <script>
 		const file = document.getElementById("file")
         const img = document.getElementById("img")
-        const url = document.getElementById("url")
-		imglink = ''
-		
-		fQuery(document).ready(function($) {
-			var info_el = $(#info),
-				images_el = $("#images");
-		});
 			
         file.addEventListener("change", ev => {
             const formdata = new FormData()
@@ -35,7 +28,12 @@
                 body: formdata
             }).then(data => data.json()).then(data => {
                 img.src = data.data.link
-				$(images_el).append(data.data.link)
+				
+				var imgs = document.createElement("img");
+				imgs.src = data.data.link
+				var src = document.getElementById("header");
+				src.appendChild(imgs);
+				
                 url.innerText = data.data.link
 				imglink = data.data.link
             })
