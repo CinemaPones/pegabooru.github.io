@@ -141,6 +141,7 @@
 				var request = gapi.client.sheets.spreadsheets.values.get(paramsNSFW); // Load NSFW Images
 				request.then(function(response) {
 					let i = response.result.values.length;
+					console.log(i);
 					while (i > 0) {
 						// Add images to website1
 						var imgs = document.createElement("img");
