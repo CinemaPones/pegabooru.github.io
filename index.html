@@ -65,10 +65,10 @@
 			
 			// Append img link to google sheets
 			var valueRangeBody = { // For NSFW
-				"values": [["1"+imglink]]
+				"values": [["1 "+imglink]]
 			};
 			var valueRangeBodySafe = { // For SFW
-				"values": [["0"+imglink]]
+				"values": [["0 "+imglink]]
 			};
 			
 			if (imglink != '') {
@@ -130,7 +130,7 @@
 						// Add images to website1
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 1) {
-							imgs.src = response.result.values[i][0].substring(1);
+							imgs.src = response.result.values[i][0].substring(2);
 							imgs.style.width = '60%';
 							imgs.style.height = 'auto';
 						}
@@ -149,7 +149,7 @@
 						// Add images to website1
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 0) {
-							imgs.src = response.result.values[i][0].substring(1);
+							imgs.src = response.result.values[i][0].substring(2);
 							imgs.style.width = '60%';
 							imgs.style.height = 'auto';
 						}
