@@ -122,9 +122,9 @@
 			if (nsfwCheck.checked) {
 				var request = gapi.client.sheets.spreadsheets.values.get(params); // Load NSFW Images
 				request.then(function(response) {
-					let i = response.result.values.length;
+					let i = 0;
 					console.log(i);
-					while (i > 0) {
+					while (i < response.result.values.length) {
 						// Add images to website1
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null) {
@@ -142,8 +142,8 @@
 			} else {
 				var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Safe Images
 				request.then(function(response) {
-					let i = response.result.values.length;
-					while (i > 0) {
+					let i = 0;
+					while (i < response.result.values.length) {
 						// Add images to website1
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null) {
