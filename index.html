@@ -127,7 +127,7 @@
 					while (i < response.result.values.length) {
 						// Add images to website1
 						var imgs = document.createElement("img");
-						if (response.result.values[i][0] != null) {
+						if (response.result.values[i][0] != null and response.result.values[i][0].charAt(0); == 1) {
 							imgs.src = response.result.values[i][0].substring(1);
 							imgs.style.width = '60%';
 							imgs.style.height = 'auto';
@@ -146,7 +146,7 @@
 					while (i < response.result.values.length) {
 						// Add images to website1
 						var imgs = document.createElement("img");
-						if (response.result.values[i][0] != null) {
+						if (response.result.values[i][0] != null and response.result.values[i][0].charAt(0); == 0) {
 							imgs.src = response.result.values[i][0].substring(1);
 							imgs.style.width = '60%';
 							imgs.style.height = 'auto';
