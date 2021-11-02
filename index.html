@@ -65,10 +65,10 @@
 			
 			// Append img link to google sheets
 			var valueRangeBody = { // For NSFW
-				"values": [["1 "+imglink]]
+				"values": [["NSFW "+imglink]]
 			};
 			var valueRangeBodySafe = { // For SFW
-				"values": [["0 "+imglink]]
+				"values": [["SFW "+imglink]]
 			};
 			
 			if (imglink != '') {
@@ -129,8 +129,8 @@
 					while (i < response.result.values.length) {
 						// Add images to website1
 						var imgs = document.createElement("img");
-						if (response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 1) {
-							imgs.src = response.result.values[i][0].substring(2);
+						if (response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N') {
+							imgs.src = response.result.values[i][0].substring(5);
 							imgs.style.width = '60%';
 							imgs.style.height = 'auto';
 						}
@@ -148,8 +148,8 @@
 					while (i < response.result.values.length) {
 						// Add images to website1
 						var imgs = document.createElement("img");
-						if (response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 0) {
-							imgs.src = response.result.values[i][0].substring(2);
+						if (response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S') {
+							imgs.src = response.result.values[i][0].substring(4);
 							imgs.style.width = '60%';
 							imgs.style.height = 'auto';
 						}
