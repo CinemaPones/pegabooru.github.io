@@ -53,7 +53,7 @@
 		ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 		
 		function update() { // Update Google Sheets
-			var paramsNSFW = { // For NSFW
+			var params = { // For NSFW
 				spreadsheetId: ssID,
 				
 				range: 'Sheet1!A:A',
@@ -61,28 +61,18 @@
 				valueInputOption: 'RAW',
 			};
 			
-			
-			
-			var paramsSFW = { // For SFW
-				spreadsheetId: ssID,
-				
-				range: 'Sheet1!A:B',
-				
-				valueInputOption: 'RAW',
-			};
-			
 			// Append img link to google sheets
 			var valueRangeBody = { // For NSFW
-				"values": [[imglink]]
+				"values": [["1"+imglink]]
 			};
 			var valueRangeBodySafe = { // For SFW
-				"values": [[null,imglink]]
+				"values": [["0"+imglink]]
 			};
 			
 			if (imglink != '') {
 				nsfwCheck = document.getElementById("nsfwCheck");
 				if (nsfwCheck.checked) { // If NSFW
-					var request = gapi.client.sheets.spreadsheets.values.append(paramsNSFW, valueRangeBody);
+					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
 					request.then(function(response) {
 					
 						console.log(response.result);
@@ -90,7 +80,7 @@
 						console.error('error: ' + reason.result.error.message);
 					});
 				} else { // If not NSFW
-					var request = gapi.client.sheets.spreadsheets.values.append(paramsSFW, valueRangeBodySafe);
+					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafe);
 					request.then(function(response) {
 					
 						console.log(response.result);
@@ -120,7 +110,7 @@
 		
 		function addImgs() {
 			document.getElementById('body').innerHTML = "";
-			var paramsNSFW = {
+			var params = {
 				// The ID of the spreadsheet to retrieve data from.
 				spreadsheetId: ssID,
 
@@ -128,17 +118,9 @@
 				range: 'Sheet1!A:A',
 			};
 			
-			var paramsSFW = {
-				// The ID of the spreadsheet to retrieve data from.
-				spreadsheetId: ssID,
-
-				// The A1 notation of the values to retrieve.
-				range: 'Sheet1!B:B',
-			};
-			
 			nsfwCheck = document.getElementById("nsfwCheck");
 			if (nsfwCheck.checked) {
-				var request = gapi.client.sheets.spreadsheets.values.get(paramsNSFW); // Load NSFW Images
+				var request = gapi.client.sheets.spreadsheets.values.get(params); // Load NSFW Images
 				request.then(function(response) {
 					let i = response.result.values.length;
 					console.log(i);
@@ -146,7 +128,7 @@
 						// Add images to website1
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null) {
-							imgs.src = response.result.values[i][0]
+							imgs.src = response.result.values[i][0].substring(1);
 							imgs.style.width = '60%';
 							imgs.style.height = 'auto';
 						}
@@ -158,14 +140,14 @@
 					console.error('error: ' + reason.result.error.message);
 				});
 			} else {
-				var request = gapi.client.sheets.spreadsheets.values.get(paramsSFW); // Load Safe Images
+				var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Safe Images
 				request.then(function(response) {
 					let i = response.result.values.length;
 					while (i > 0) {
 						// Add images to website1
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null) {
-							imgs.src = response.result.values[i][0]
+							imgs.src = response.result.values[i][0].substring(1);
 							imgs.style.width = '60%';
 							imgs.style.height = 'auto';
 						}
