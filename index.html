@@ -5,15 +5,15 @@
 		body {background-color: teal;}
 	</style>
 	
-	<button id="signout-button" onclick="handleSignOutClick()" style="float: right;height:50px;width:100px">Sign out</button>
-    <button id="signin-button" onclick="handleSignInClick()" style="float: right;height:20px;width:80px">Sign in</button>
+	<button id="signout-button" onclick="handleSignOutClick()" style="float: right;height:40px;width:100px">Sign out</button>
+    <button id="signin-button" onclick="handleSignInClick()" style="float: right;height:40px;width:100px">Sign in</button>
 	
     <img src="https://i.imgur.com/U7afLiO.png" id="img" height="200px">
     <br/>
     <input type="file" id="file">
     <br/>
 	<br/>
-	<button id="update-button" onclick="update()">Add Image</button>
+	<button id="update-button" onclick="update()">Submit Image</button>
 	<button id="update-button" onclick="addImgs()">Load Images</button>
 	<br/>
 	<br/>
@@ -146,7 +146,7 @@
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null) {
 							imgs.src = response.result.values[i][0]
-							imgs.style.width = '75%';
+							imgs.style.width = '60%';
 							imgs.style.height = 'auto';
 						}
 						var src = document.getElementById("body");
@@ -165,7 +165,7 @@
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null) {
 							imgs.src = response.result.values[i][0]
-							imgs.style.width = '75%';
+							imgs.style.width = '60%';
 							imgs.style.height = 'auto';
 						}
 						var src = document.getElementById("body");
