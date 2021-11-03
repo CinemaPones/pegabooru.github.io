@@ -43,9 +43,14 @@
             <b>Female:</b> <input type="checkbox" id="femaleCheck">
             <br/>
             <br/>
+            <b>Image Size</b>
+            <br/>
+            <input type="range" min="1" max="100" value="60" class="slider" id="imgsize">
+            <br/>
+            <br/>
         </center>
     </div>
-    
+
     <br/>
     <br/>
     <br/>
@@ -79,6 +84,9 @@
                     imglink = document.getElementById("dirlink").value
                 }
             })
+        })
+        document.getElementById("imgsize").addEventListener("change", ev => {
+            imgsize = document.getElementById("imgsize").value+'%'
         })
 	
 	
@@ -241,7 +249,7 @@
 							} else if (response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') { // NSFW Female
 								imgs.src = response.result.values[i][0].substring(12);
 							}
-							imgs.style.width = '60%';
+							imgs.style.width = imgsize;
 							imgs.style.height = 'auto';
 						}
 					var src = document.getElementById("body");
@@ -275,7 +283,7 @@
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) != 'M' && response.result.values[i][0].charAt(5) != 'F') {
 							imgs.src = response.result.values[i][0].substring(5);
-							imgs.style.width = '60%';
+							imgs.style.width = imgsize;
 							imgs.style.height = 'auto';
 						}
 						var src = document.getElementById("body");
@@ -294,7 +302,7 @@
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) != 'M' && response.result.values[i][0].charAt(5) != 'F') {
 							imgs.src = response.result.values[i][0].substring(5);
-							imgs.style.width = '60%';
+							imgs.style.width = imgsize;
 							imgs.style.height = 'auto';
 						}
 						var src = document.getElementById("body");
@@ -313,7 +321,7 @@
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'M') {
 							imgs.src = response.result.values[i][0].substring(10);
-							imgs.style.width = '60%';
+							imgs.style.width = imgsize;
 							imgs.style.height = 'auto';
 						}
 						var src = document.getElementById("body");
@@ -332,7 +340,7 @@
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') {
 							imgs.src = response.result.values[i][0].substring(12);
-							imgs.style.width = '60%';
+							imgs.style.width = imgsize;
 							imgs.style.height = 'auto';
 						}
 						var src = document.getElementById("body");
@@ -353,7 +361,7 @@
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) != 'M' && response.result.values[i][0].charAt(4) != 'F') {
 							imgs.src = response.result.values[i][0].substring(4);
-							imgs.style.width = '60%';
+							imgs.style.width = imgsize;
 							imgs.style.height = 'auto';
 						}
 						var src = document.getElementById("body");
@@ -372,7 +380,7 @@
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) != 'M' && response.result.values[i][0].charAt(4) != 'F') {
 							imgs.src = response.result.values[i][0].substring(4);
-							imgs.style.width = '60%';
+							imgs.style.width = imgsize;
 							imgs.style.height = 'auto';
 						}
 						var src = document.getElementById("body");
@@ -391,7 +399,7 @@
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'M') {
 							imgs.src = response.result.values[i][0].substring(9);
-							imgs.style.width = '60%';
+							imgs.style.width = imgsize;
 							imgs.style.height = 'auto';
 						}
 						var src = document.getElementById("body");
@@ -410,7 +418,7 @@
 						var imgs = document.createElement("img");
 						if (response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'F') {
 							imgs.src = response.result.values[i][0].substring(11);
-							imgs.style.width = '60%';
+							imgs.style.width = imgsize;
 							imgs.style.height = 'auto';
 						}
 						var src = document.getElementById("body");
