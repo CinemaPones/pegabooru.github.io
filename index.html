@@ -2,34 +2,51 @@
 <html lang="en">
 <body>
 	<style>
-		body {background-color: teal;}
+		body {background-image:url('https://i.imgur.com/VCSGaCz.png')}
 	</style>
-	
-	<button id="signout-button" onclick="handleSignOutClick()" style="float: right;height:40px;width:100px;border-radius:10%;">Sign out</button>
-    <button id="signin-button" onclick="handleSignInClick()" style="float: right;height:40px;width:100px;border-radius:10%;">Sign in</button>
-	
-	<img src="https://i.imgur.com/U7afLiO.png" id="img" height="200px">
-	<br/>
-	<input type="file" id="file">
-	<br/>
-	<button id="update-button" onclick="update()">Submit Image</button>
+    
+    <style>
+        .title {
+            border: 5px outset rgb(0, 31, 71);
+            background-image:url('https://i.imgur.com/6mP91Gg.png');
+            background-size: cover
+        }
+    </style>
+    <div class="title">
+        <center>
+            <p style="font-size:40px;font-family:verdana;color:rgb(86, 179, 255)"><b>PegaBooru</b></p>
+            <button id="signin-button" onclick="handleSignInClick()" style="height:40px;width:100px;border-radius:10%;background-color:rgb(161, 199, 255)">Sign in</button>
+            <button id="signout-button" onclick="handleSignOutClick()" style="height:40px;width:100px;border-radius:10%;background-color:rgb(161, 199, 255)">Sign out</button>
+            <br/>
+            <br/>
+            <br/>
+        </center>
+
+        <img src="https://i.imgur.com/U7afLiO.png" id="img" height="200px">
+        <br/>
+        <input type="file" id="file">
+        <br/>
+        <input type="text" id="dirlink" name="dirlink" placeholder="Direct Image Link (optional)">
+        <br/>
+        <button id="update-button" onclick="update()" style="height:20px;width:177px;background-color:rgb(120, 129, 248)">Submit Image</button>
+        <center>
+            <strong>
+                <p id="url"></p>
+            </strong>
+            <br/>
+            <button id="update-button" onclick="addImgsAll()" style="background-color:rgb(161, 199, 255)">Load All Images</button>
+            <button id="update-button" onclick="addImgs()" style="background-color:rgb(161, 199, 255)">Load Images With Tags</button>
+            <br/>
+            <br/>
+            <b>NS:</b> <input type="checkbox" id="nsfwCheck">
+            <b>Male:</b> <input type="checkbox" id="maleCheck">
+            <b>Female:</b> <input type="checkbox" id="femaleCheck">
+            <br/>
+            <br/>
+        </center>
+    </div>
 	<center>
-		<strong>
-			<p id="url"></p>
-		</strong>
-		<br/>
-		<button id="update-button" onclick="addImgsAll()">Load All Images</button>
-		<button id="update-button" onclick="addImgs()">Load Images With Tags</button>
-		<br/>
-		<br/>
-		<b>NSFW:</b> <input type="checkbox" id="nsfwCheck">
-		<b>Male:</b> <input type="checkbox" id="maleCheck">
-		<b>Female:</b> <input type="checkbox" id="femaleCheck">
-		<br/>
-		<br/>
-	</center>
-	<center>
-		<div id="body"></div>
+		<div id="body" style="background-color:teal"></div>
 	</center>
 
     <script>
@@ -47,9 +64,15 @@
                 },
                 body: formdata
             }).then(data => data.json()).then(data => {
-                img.src = data.data.link
-                url.innerText = data.data.link
-				imglink = data.data.link
+                if (ev.target.files[0] != null) {
+                    img.src = data.data.link
+                    url.innerText = data.data.link
+                    imglink = data.data.link
+                } else if (document.getElementById("dirlink").value != null) {
+                    img.src = document.getElementById("dirlink").value
+                    url.innerText = document.getElementById("dirlink").value
+                    imglink = document.getElementById("dirlink").value
+                }
             })
         })
 	
@@ -58,7 +81,7 @@
 		ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 		
 		function update() { // Update Google Sheets
-			var params = { // For NSFW
+			var params = {
 				spreadsheetId: ssID,
 				
 				range: 'Sheet1!A:A',
@@ -66,6 +89,12 @@
 				valueInputOption: 'RAW',
 			};
 			
+            if (document.getElementById("dirlink").value != null || document.getElementById("dirlink").value != '') {
+                img.src = document.getElementById("dirlink").value
+                url.innerText = document.getElementById("dirlink").value
+                imglink = document.getElementById("dirlink").value
+            }
+
 			// Append img link to google sheets
 			var valueRangeBody = { // For NSFW
 				"values": [["NSFW "+imglink]]
