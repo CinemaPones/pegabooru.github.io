@@ -208,10 +208,23 @@
 			};
 			
 			if (imglink != '') {
-				nsfwCheck = document.getElementById("nsfwCheck");
-				maleCheck = document.getElementById("maleCheck");
-				femaleCheck = document.getElementById("femaleCheck");
-				if (nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked) { // If NSFW
+                nsfwCheck = document.getElementById("nsfwCheck");
+                maleCheck = document.getElementById("maleCheck");
+                femaleCheck = document.getElementById("femaleCheck");
+
+                nsfwOnly = (nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
+                nsfwOnly2 = (nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
+                nsfw = (nsfwOnly || nsfwOnly2)
+                nsfwMale = (nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
+                nsfwFemale = (nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
+
+                sfwOnly = (!nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
+                sfwOnly2 = (!nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
+                sfw = (sfwOnly || sfwOnly2)
+                sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
+                sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
+
+				if (nsfw) { // If NSFW
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
 					request.then(function(response) {
 					
@@ -219,15 +232,7 @@
 					}, function(reason) {
 						console.error('error: ' + reason.result.error.message);
 					});
-				} else if (nsfwCheck.checked && maleCheck.checked && femaleCheck.checked) { // If NSFW
-					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
-					request.then(function(response) {
-					
-						console.log(response.result);
-					}, function(reason) {
-						console.error('error: ' + reason.result.error.message);
-					});
-				} else if (nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked) { // If NSFW and MALE
+				} else if (nsfwMale) { // If NSFW and MALE
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyMale);
 					request.then(function(response) {
 					
@@ -235,7 +240,7 @@
 					}, function(reason) {
 						console.error('error: ' + reason.result.error.message);
 					});
-				} else if (nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked) { // If NSFW and FEMALE
+				} else if (nsfwFemale) { // If NSFW and FEMALE
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyFemale);
 					request.then(function(response) {
 					
@@ -244,7 +249,7 @@
 						console.error('error: ' + reason.result.error.message);
 					});
 					
-				} else if (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked) { // If not NSFW and MALE
+				} else if (sfwMale) { // If not NSFW and MALE
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeMale);
 					request.then(function(response) {
 					
@@ -252,7 +257,7 @@
 					}, function(reason) {
 						console.error('error: ' + reason.result.error.message);
 					});	
-				} else if (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked) { // If not NSFW and FEMALE
+				} else if (sfwFemale) { // If not NSFW and FEMALE
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeFemale);
 					request.then(function(response) {
 					
@@ -260,7 +265,7 @@
 					}, function(reason) {
 						console.error('error: ' + reason.result.error.message);
 					});	
-				} else if (!nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked) { // If not NSFW
+				} else if (sfw) { // If not NSFW
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafe);
 					request.then(function(response) {
 					
@@ -268,14 +273,6 @@
 					}, function(reason) {
 						console.error('error: ' + reason.result.error.message);
 					});		
-				} else if (!nsfwCheck.checked && maleCheck.checked && femaleCheck.checked) { // If not NSFW
-					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafe);
-					request.then(function(response) {
-					
-						console.log(response.result);
-					}, function(reason) {
-						console.error('error: ' + reason.result.error.message);
-					});						
 				}
 			}
 		}
@@ -348,22 +345,6 @@
 				// The A1 notation of the values to retrieve.
 				range: 'Sheet1!A:A',
 			};
-			
-			nsfwCheck = document.getElementById("nsfwCheck");
-			maleCheck = document.getElementById("maleCheck");
-			femaleCheck = document.getElementById("femaleCheck");
-
-            nsfwOnly = (nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
-            nsfwOnly2 = (nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
-            nsfw = (nsfwOnly || nsfwOnly2)
-            nsfwMale = (nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
-            nsfwFemale = (nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
-
-            sfwOnly = (!nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
-            sfwOnly2 = (!nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
-            sfw = (sfwOnly || sfwOnly2)
-            sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
-            sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
 
             var request = gapi.client.sheets.spreadsheets.values.get(params); // Load NSFW Images
             request.then(function(response) {
