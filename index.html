@@ -330,32 +330,27 @@
                     sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
                     sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
 
-					function imgHandle() {
+					function imgHandle(substr) {
 						var imgs = document.createElement("img");
                         var src = document.getElementById("body");
+						imgs.src = response.result.values[i][0].substring(substr);
                         src.appendChild(imgs);
 						imgs.style.width = imgsize;
                         imgs.style.height = 'auto';
 					}
 
                     if (nsfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') { // nsfw
-                        imgHandle();
-						imgs.src = response.result.values[i][0].substring(5);
+                        imgHandle(5);
                     } else if (nsfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'M') { // nsfwMale
-                        imgHandle();
-						imgs.src = response.result.values[i][0].substring(10);
+                        imgHandle(10);
                     } else if (nsfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') { // nsfwFemale
-                        imgHandle();
-						imgs.src = response.result.values[i][0].substring(12);
+                        imgHandle(12);
                     } else if (sfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'h') { // sfw
-                        imgHandle();
-						imgs.src = response.result.values[i][0].substring(4);
+                        imgHandle(4);
                     } else if (sfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'M') { // sfwMale
-                        imgHandle();
-						imgs.src = response.result.values[i][0].substring(9);
+                        imgHandle(9);
                     } else if (sfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'F') { // sfwFemale
-                        imgHandle();
-						imgs.src = response.result.values[i][0].substring(11);
+                        imgHandle(11);
                     }
 
                     i++;
