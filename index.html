@@ -226,53 +226,16 @@
 
 				if (nsfw) { // If NSFW
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
-					request.then(function(response) {
-					
-						console.log(response.result);
-					}, function(reason) {
-						console.error('error: ' + reason.result.error.message);
-					});
 				} else if (nsfwMale) { // If NSFW and MALE
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyMale);
-					request.then(function(response) {
-					
-						console.log(response.result);
-					}, function(reason) {
-						console.error('error: ' + reason.result.error.message);
-					});
 				} else if (nsfwFemale) { // If NSFW and FEMALE
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyFemale);
-					request.then(function(response) {
-					
-						console.log(response.result);
-					}, function(reason) {
-						console.error('error: ' + reason.result.error.message);
-					});
-					
 				} else if (sfwMale) { // If not NSFW and MALE
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeMale);
-					request.then(function(response) {
-					
-						console.log(response.result);
-					}, function(reason) {
-						console.error('error: ' + reason.result.error.message);
-					});	
 				} else if (sfwFemale) { // If not NSFW and FEMALE
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeFemale);
-					request.then(function(response) {
-					
-						console.log(response.result);
-					}, function(reason) {
-						console.error('error: ' + reason.result.error.message);
-					});	
 				} else if (sfw) { // If not NSFW
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafe);
-					request.then(function(response) {
-					
-						console.log(response.result);
-					}, function(reason) {
-						console.error('error: ' + reason.result.error.message);
-					});		
 				}
 			}
 		}
@@ -288,7 +251,6 @@
 
 		  var request = gapi.client.sheets.spreadsheets.values.get(params);
 		  request.then(function(response) {
-			console.log(response.result);
 		  }, function(reason) {
 			console.error('error: ' + reason.result.error.message);
 		  });
@@ -368,48 +330,32 @@
                     sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
                     sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
 
+					function imgHandle() {
+						var imgs = document.createElement("img");
+                        var src = document.getElementById("body");
+                        src.appendChild(imgs);
+						imgs.style.width = imgsize;
+                        imgs.style.height = 'auto';
+					}
+
                     if (nsfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') { // nsfw
-                        var imgs = document.createElement("img");
-                        var src = document.getElementById("body");
-                        src.appendChild(imgs);
-                        imgs.src = response.result.values[i][0].substring(5);
-                        imgs.style.width = imgsize;
-                        imgs.style.height = 'auto';
+                        imgHandle();
+						imgs.src = response.result.values[i][0].substring(5);
                     } else if (nsfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'M') { // nsfwMale
-                        var imgs = document.createElement("img");
-                        var src = document.getElementById("body");
-                        src.appendChild(imgs);
-                        imgs.src = response.result.values[i][0].substring(10);
-                        imgs.style.width = imgsize;
-                        imgs.style.height = 'auto';
+                        imgHandle();
+						imgs.src = response.result.values[i][0].substring(10);
                     } else if (nsfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') { // nsfwFemale
-                        var imgs = document.createElement("img");
-                        var src = document.getElementById("body");
-                        src.appendChild(imgs);
-                        imgs.src = response.result.values[i][0].substring(12);
-                        imgs.style.width = imgsize;
-                        imgs.style.height = 'auto';
+                        imgHandle();
+						imgs.src = response.result.values[i][0].substring(12);
                     } else if (sfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'h') { // sfw
-                        var imgs = document.createElement("img");
-                        var src = document.getElementById("body");
-                        src.appendChild(imgs);
-                        imgs.src = response.result.values[i][0].substring(4);
-                        imgs.style.width = imgsize;
-                        imgs.style.height = 'auto';
+                        imgHandle();
+						imgs.src = response.result.values[i][0].substring(4);
                     } else if (sfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'M') { // sfwMale
-                        var imgs = document.createElement("img");
-                        var src = document.getElementById("body");
-                        src.appendChild(imgs);
-                        imgs.src = response.result.values[i][0].substring(9);
-                        imgs.style.width = imgsize;
-                        imgs.style.height = 'auto';
+                        imgHandle();
+						imgs.src = response.result.values[i][0].substring(9);
                     } else if (sfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'F') { // sfwFemale
-                        var imgs = document.createElement("img");
-                        var src = document.getElementById("body");
-                        src.appendChild(imgs);
-                        imgs.src = response.result.values[i][0].substring(11);
-                        imgs.style.width = imgsize;
-                        imgs.style.height = 'auto';
+                        imgHandle();
+						imgs.src = response.result.values[i][0].substring(11);
                     }
 
                     i++;
