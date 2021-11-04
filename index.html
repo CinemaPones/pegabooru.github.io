@@ -351,7 +351,6 @@
                 let i = 0;
                 while (i < response.result.values.length) {
                     // Add images to website
-                    var imgs = document.createElement("img");
 
                     nsfwCheck = document.getElementById("nsfwCheck");
                     maleCheck = document.getElementById("maleCheck");
@@ -370,26 +369,32 @@
                     sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
 
                     if (nsfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') {
+                        var imgs = document.createElement("img");
                         imgs.src = response.result.values[i][0].substring(5);
                         imgs.style.width = imgsize;
                         imgs.style.height = 'auto';
                     } else if (nsfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'M') {
+                        var imgs = document.createElement("img");
                         imgs.src = response.result.values[i][0].substring(10);
                         imgs.style.width = imgsize;
                         imgs.style.height = 'auto';
                     } else if (nsfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') {
+                        var imgs = document.createElement("img");
                         imgs.src = response.result.values[i][0].substring(12);
                         imgs.style.width = imgsize;
                         imgs.style.height = 'auto';
                     } else if (sfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'h') {
+                        var imgs = document.createElement("img");
                         imgs.src = response.result.values[i][0].substring(4);
                         imgs.style.width = imgsize;
                         imgs.style.height = 'auto';
                     } else if (sfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'M') {
+                        var imgs = document.createElement("img");
                         imgs.src = response.result.values[i][0].substring(9);
                         imgs.style.width = imgsize;
                         imgs.style.height = 'auto';
                     } else if (sfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'F') {
+                        var imgs = document.createElement("img");
                         imgs.src = response.result.values[i][0].substring(11);
                         imgs.style.width = imgsize;
                         imgs.style.height = 'auto';
