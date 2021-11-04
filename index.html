@@ -1,60 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<body>
-	<style>
-		body {background-image:url('https://i.imgur.com/VCSGaCz.png')}
-	</style>
-    
     <style>
-        .title {
+        body {background-image:url('https://i.imgur.com/VCSGaCz.png')}
+
+        .main {
             border: 5px outset rgb(0, 31, 71);
+            border-radius: 25px;
             background-image:url('https://i.imgur.com/6mP91Gg.png');
             background-size: cover
         }
+
+        .header {
+            border-radius: 20px;
+            height:175px;
+            background-color:rgb(0, 86, 126);
+            display: flex;
+            justify-content:center;
+        }
+        .title {
+            border-radius: 20px;
+            height:125px;
+            width:400px;
+            background-color: rgb(0, 76, 116);
+        }
+
+        .imageupload {
+            background-image:url('https://i.imgur.com/itV9erm.png');
+            background-size:cover;
+            position: relative;
+            width: 300px;
+            border: 15px outset rgb(0, 31, 71);
+            border-radius: 25px;
+        }
     </style>
-    <div class="title">
-        <center>
-            <p style="font-size:40px;font-family:verdana;color:rgb(86, 179, 255)"><b>PegaBooru</b></p>
-            <button id="signin-button" onclick="handleSignInClick()" style="height:40px;width:100px;border-radius:10%;background-color:rgb(161, 199, 255)">Sign in</button>
-            <button id="signout-button" onclick="handleSignOutClick()" style="height:40px;width:100px;border-radius:10%;background-color:rgb(161, 199, 255)">Sign out</button>
-            <br/>
-            <br/>
-            <br/>
-        </center>
 
-        <img src="https://i.imgur.com/U7afLiO.png" id="img" height="200px">
-        <br/>
-        <input type="file" id="file">
-        <br/>
-        <input type="text" id="dirlink" name="dirlink" placeholder="Direct Image Link (optional)">
-        <br/>
-        <button id="update-button" onclick="update()" style="height:20px;width:177px;background-color:rgb(120, 129, 248)">Submit Image</button>
-        <center>
-            <strong>
-                <p id="url"></p>
-            </strong>
-            <br/>
-            <button id="update-button" onclick="addImgsAll()" style="background-color:rgb(161, 199, 255)">Load All Images</button>
-            <button id="update-button" onclick="addImgs()" style="background-color:rgb(161, 199, 255)">Load Images With Tags</button>
-            <br/>
-            <br/>
-            <b>NS:</b> <input type="checkbox" id="nsfwCheck">
-            <b>Male:</b> <input type="checkbox" id="maleCheck">
-            <b>Female:</b> <input type="checkbox" id="femaleCheck">
-            <br/>
-            <br/>
 
-            <script>
-                imgsize = '60'+'%'
-            </script>
-            <b>Image Size</b>
-            <br/>
-            <input type="range" min="51" max="100" value="60" class="slider" id="imgsize">
+
+    <head>
+        <div class="main">
+            <center>
+                <div class="header">
+                    <center>
+                        <div class="title">
+                            <h1 style="font-size:40px;font-family:verdana;color:rgb(86, 179, 255)"><b>PegaBooru</b></h1>
+                            <button id="signin-button" onclick="handleSignInClick()" style="border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Sign in</b></button>ㅤ
+                            <button id="signout-button" onclick="handleSignOutClick()" style="border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Sign out</b></button>
+                        </div>
+                    </center>
+                </div>
+
+                <br/>
+                <br/>
+
+                <div class="imageupload">
+                    <center>
+                        <br/>
+                        <img src="https://i.imgur.com/U7afLiO.png" id="img" height="200px" width="auto">
+                        <br/>
+                        <input type="file" id="file">
+                        <br/>
+                        <br/>
+                        <input type="text" id="dirlink" name="dirlink" placeholder="Direct Image Link (optional)">
+                        <br/>
+                        <br/>
+                        <button id="submit-button" onclick="update()" style="height:30px;width:177px;border:0px;border-radius:10px;background-color:rgb(120, 129, 248)"><b style="color:rgb(48, 63, 95)">Submit Image</b></button>
+                        <strong>
+                            <p id="url" style="color:rgb(0, 187, 62)"></p>
+                        </strong>
+                    </center>
+                </div>
 
             <br/>
-            <br/>
-        </center>
-    </div>
+
+                <button id="update-button" onclick="addImgsAll()" style="border:0px;border-radius:10px;height:30px;background-color:rgb(161, 199, 255)"><b style="color:rgb(56, 120, 172)">Load All Images</b></button>
+                <button id="update-button2" onclick="addImgs()" style="border:0px;border-radius:10px;height:30px;background-color:rgb(161, 199, 255)"><b style="color:rgb(56, 120, 172)">Load Images With Tags</b></button>
+                <br/>
+                <br/>
+                <b style="font-size:20px;font-family:verdana;color:rgb(0, 35, 63)">NS</b> <input type="checkbox" id="nsfwCheck">
+                <b style="font-size:20px;font-family:verdana;color:rgb(0, 35, 63)">Male</b> <input type="checkbox" id="maleCheck">
+                <b style="font-size:20px;font-family:verdana;color:rgb(0, 35, 63)">Female</b> <input type="checkbox" id="femaleCheck">
+                <br/>
+                <br/>
+
+                <script>
+                    imgsize = '60'+'%'
+                </script>
+                <b style="font-size:20px;font-family:verdana;color:rgb(14, 35, 53)">Image Size</b>
+                <br/>
+                <input type="range" min="51" max="100" value="60" class="slider" id="imgsize">
+
+            </center>
+        </div>
+    </head>
 
     <br/>
     <br/>
@@ -68,7 +105,43 @@
 		const file = document.getElementById("file")
         const img = document.getElementById("img")
 		imglink = ''
-		
+
+        // Change button color on hover
+        document.getElementById("signin-button").addEventListener("mouseover", ev => { // Sign in and out buttons
+            document.getElementById("signin-button").style.backgroundColor = '#8FB1E0'
+        })
+        document.getElementById("signin-button").addEventListener("mouseout", ev => {
+            document.getElementById("signin-button").style.backgroundColor = '#A1C7FF'
+        })
+        document.getElementById("signout-button").addEventListener("mouseover", ev => {
+            document.getElementById("signout-button").style.backgroundColor = '#8FB1E0'
+        })
+        document.getElementById("signout-button").addEventListener("mouseout", ev => {
+            document.getElementById("signout-button").style.backgroundColor = '#A1C7FF'
+        })
+
+        document.getElementById("submit-button").addEventListener("mouseover", ev => { // Submit button
+            document.getElementById("submit-button").style.backgroundColor = '#5C62BC'
+        })
+        document.getElementById("submit-button").addEventListener("mouseout", ev => {
+            document.getElementById("submit-button").style.backgroundColor = '#7881F8'
+        })
+
+        document.getElementById("update-button").addEventListener("mouseover", ev => { // Load images buttons
+            document.getElementById("update-button").style.backgroundColor = '#8FB1E0'
+        })
+        document.getElementById("update-button").addEventListener("mouseout", ev => {
+            document.getElementById("update-button").style.backgroundColor = '#A1C7FF'
+        })
+        document.getElementById("update-button2").addEventListener("mouseover", ev => {
+            document.getElementById("update-button2").style.backgroundColor = '#8FB1E0'
+        })
+        document.getElementById("update-button2").addEventListener("mouseout", ev => {
+            document.getElementById("update-button2").style.backgroundColor = '#A1C7FF'
+        })
+
+
+
         file.addEventListener("change", ev => {
             const formdata = new FormData()
             formdata.append("image", ev.target.files[0])
@@ -476,5 +549,4 @@
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
-</body>
 </html>
