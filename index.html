@@ -127,7 +127,7 @@
             document.getElementById("submit-button").style.backgroundColor = '#7881F8'
         })
 
-        document.getElementById("update-button").addEventListener("mouseover", ev => { // Load images buttons
+        document.getElementById("update-button").addEventListener("mouseover", ev => { // Load image buttons
             document.getElementById("update-button").style.backgroundColor = '#8FB1E0'
         })
         document.getElementById("update-button").addEventListener("mouseout", ev => {
@@ -368,42 +368,42 @@
                     sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
                     sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
 
-                    if (nsfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') {
+                    if (nsfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') { // nsfw
                         var imgs = document.createElement("img");
                         var src = document.getElementById("body");
                         src.appendChild(imgs);
                         imgs.src = response.result.values[i][0].substring(5);
                         imgs.style.width = imgsize;
                         imgs.style.height = 'auto';
-                    } else if (nsfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'M') {
+                    } else if (nsfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'M') { // nsfwMale
                         var imgs = document.createElement("img");
                         var src = document.getElementById("body");
                         src.appendChild(imgs);
                         imgs.src = response.result.values[i][0].substring(10);
                         imgs.style.width = imgsize;
                         imgs.style.height = 'auto';
-                    } else if (nsfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') {
+                    } else if (nsfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') { // nsfwFemale
                         var imgs = document.createElement("img");
                         var src = document.getElementById("body");
                         src.appendChild(imgs);
                         imgs.src = response.result.values[i][0].substring(12);
                         imgs.style.width = imgsize;
                         imgs.style.height = 'auto';
-                    } else if (sfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'h') {
+                    } else if (sfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'h') { // sfw
                         var imgs = document.createElement("img");
                         var src = document.getElementById("body");
                         src.appendChild(imgs);
                         imgs.src = response.result.values[i][0].substring(4);
                         imgs.style.width = imgsize;
                         imgs.style.height = 'auto';
-                    } else if (sfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'M') {
+                    } else if (sfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'M') { // sfwMale
                         var imgs = document.createElement("img");
                         var src = document.getElementById("body");
                         src.appendChild(imgs);
                         imgs.src = response.result.values[i][0].substring(9);
                         imgs.style.width = imgsize;
                         imgs.style.height = 'auto';
-                    } else if (sfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'F') {
+                    } else if (sfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'F') { // sfwFemale
                         var imgs = document.createElement("img");
                         var src = document.getElementById("body");
                         src.appendChild(imgs);
@@ -411,6 +411,7 @@
                         imgs.style.width = imgsize;
                         imgs.style.height = 'auto';
                     }
+
                     i++;
                 }
             }, function(reason) {
