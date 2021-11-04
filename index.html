@@ -352,26 +352,9 @@
 			nsfwCheck = document.getElementById("nsfwCheck");
 			maleCheck = document.getElementById("maleCheck");
 			femaleCheck = document.getElementById("femaleCheck");
-			if (nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked) {
-				var request = gapi.client.sheets.spreadsheets.values.get(params); // Load NSFW Images
-				request.then(function(response) {
-					let i = 0;
-					while (i < response.result.values.length) {
-						// Add images to website1
-						var imgs = document.createElement("img");
-						if (response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') {
-							imgs.src = response.result.values[i][0].substring(5);
-							imgs.style.width = imgsize;
-							imgs.style.height = 'auto';
-						}
-						var src = document.getElementById("body");
-						src.appendChild(imgs);
-						i++;
-					}
-				}, function(reason) {
-					console.error('error: ' + reason.result.error.message);
-				});
-			} else if (nsfwCheck.checked && maleCheck.checked && femaleCheck.checked) {
+            nsfwOnly = (nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
+            nsfwOnly2 = (nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
+			if (nsfwOnly || nsfwOnly2) {
 				var request = gapi.client.sheets.spreadsheets.values.get(params); // Load NSFW Images
 				request.then(function(response) {
 					let i = 0;
