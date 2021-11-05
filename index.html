@@ -187,7 +187,7 @@
             sfw = (sfwOnly || sfwOnly2)
             sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
             sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
-
+            
 			var params = {
 				spreadsheetId: ssID,
 				
@@ -251,6 +251,10 @@
 		  };
 
 		  var request = gapi.client.sheets.spreadsheets.values.get(params);
+		  request.then(function(response) {
+		  }, function(reason) {
+			console.error('error: ' + reason.result.error.message);
+		  });
 		}
 		
 		function addImgsAll() {
@@ -290,6 +294,8 @@
 					src.appendChild(imgs);
 					i++;
 				}
+			}, function(reason) {
+				console.error('error: ' + reason.result.error.message);
 			});
 		}
 		
@@ -350,6 +356,9 @@
 
                     i++;
                 }
+
+            }, function(reason) {
+                console.error('error: ' + reason.result.error.message);
             });
 		}
 
