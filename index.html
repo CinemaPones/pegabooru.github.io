@@ -222,23 +222,20 @@
 			var valueRangeBodySafeFemale = { // For SFW+FEMALE
 				"values": [["SFW FEMALE "+imglink]]
 			};
-			
-			if (imglink != '') {
 
-				if (nsfw) { // If NSFW
-					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
-				} else if (nsfwMale) { // If NSFW and MALE
-					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyMale);
-				} else if (nsfwFemale) { // If NSFW and FEMALE
-					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyFemale);
-				} else if (sfwMale) { // If not NSFW and MALE
-					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeMale);
-				} else if (sfwFemale) { // If not NSFW and FEMALE
-					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeFemale);
-				} else if (sfw) { // If not NSFW
-					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafe);
-				}
-			}
+            if (nsfw) { // If NSFW
+                var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
+            } else if (nsfwMale) { // If NSFW and MALE
+                var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyMale);
+            } else if (nsfwFemale) { // If NSFW and FEMALE
+                var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyFemale);
+            } else if (sfwMale) { // If not NSFW and MALE
+                var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeMale);
+            } else if (sfwFemale) { // If not NSFW and FEMALE
+                var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeFemale);
+            } else if (sfw) { // If not NSFW
+                var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafe);
+            }
 		}
 		
 		function get() {
