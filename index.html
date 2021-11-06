@@ -222,20 +222,78 @@
 			var valueRangeBodySafeFemale = { // For SFW+FEMALE
 				"values": [["SFW FEMALE "+imglink]]
 			};
-
-            if (nsfw) { // If NSFW
-                var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
-            } else if (nsfwMale) { // If NSFW and MALE
-                var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyMale);
-            } else if (nsfwFemale) { // If NSFW and FEMALE
-                var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyFemale);
-            } else if (sfwMale) { // If not NSFW and MALE
-                var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeMale);
-            } else if (sfwFemale) { // If not NSFW and FEMALE
-                var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeFemale);
-            } else if (sfw) { // If not NSFW
-                var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafe);
-            }
+			
+			if (imglink != '') {
+				nsfwCheck = document.getElementById("nsfwCheck");
+				maleCheck = document.getElementById("maleCheck");
+				femaleCheck = document.getElementById("femaleCheck");
+				if (nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked) { // If NSFW
+					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
+					request.then(function(response) {
+					
+						console.log(response.result);
+					}, function(reason) {
+						console.error('error: ' + reason.result.error.message);
+					});
+				} else if (nsfwCheck.checked && maleCheck.checked && femaleCheck.checked) { // If NSFW
+					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
+					request.then(function(response) {
+					
+						console.log(response.result);
+					}, function(reason) {
+						console.error('error: ' + reason.result.error.message);
+					});
+				} else if (nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked) { // If NSFW and MALE
+					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyMale);
+					request.then(function(response) {
+					
+						console.log(response.result);
+					}, function(reason) {
+						console.error('error: ' + reason.result.error.message);
+					});
+				} else if (nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked) { // If NSFW and FEMALE
+					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyFemale);
+					request.then(function(response) {
+					
+						console.log(response.result);
+					}, function(reason) {
+						console.error('error: ' + reason.result.error.message);
+					});
+					
+				} else if (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked) { // If not NSFW and MALE
+					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeMale);
+					request.then(function(response) {
+					
+						console.log(response.result);
+					}, function(reason) {
+						console.error('error: ' + reason.result.error.message);
+					});	
+				} else if (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked) { // If not NSFW and FEMALE
+					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeFemale);
+					request.then(function(response) {
+					
+						console.log(response.result);
+					}, function(reason) {
+						console.error('error: ' + reason.result.error.message);
+					});	
+				} else if (!nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked) { // If not NSFW
+					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafe);
+					request.then(function(response) {
+					
+						console.log(response.result);
+					}, function(reason) {
+						console.error('error: ' + reason.result.error.message);
+					});		
+				} else if (!nsfwCheck.checked && maleCheck.checked && femaleCheck.checked) { // If not NSFW
+					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafe);
+					request.then(function(response) {
+					
+						console.log(response.result);
+					}, function(reason) {
+						console.error('error: ' + reason.result.error.message);
+					});						
+				}
+			}
 		}
 		
 		function get() {
