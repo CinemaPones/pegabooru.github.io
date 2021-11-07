@@ -200,6 +200,7 @@
                     img.src = data.data.link
                     url.innerText = data.data.link
                     imglink = data.data.link
+                    document.getElementById("dirlink").value = data.data.link
                 } else if (document.getElementById("dirlink").value != null) {
                     img.src = document.getElementById("dirlink").value
                     url.innerText = document.getElementById("dirlink").value
@@ -210,6 +211,8 @@
         document.getElementById("imgsize").addEventListener("change", ev => {
             imgsize = document.getElementById("imgsize").value+'%'
         })
+    
+
     
 		// Notifications
         function notify(msg) { // Normal
@@ -407,7 +410,7 @@
                             imgHandle(12);
                         }
                     }
-                    
+
 					i++;
 				}
 			}, function(reason) {
