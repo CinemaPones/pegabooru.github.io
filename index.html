@@ -35,6 +35,22 @@
             background-color: rgb(116, 0, 0);
             opacity: 0.75;
         }
+        .notifyYellow {
+            z-index: 999;
+            visibility: hidden;
+            border-radius: 10px;
+            height:30px;
+            width:75%;
+            position: fixed;
+            top: 1em;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            background-color: rgb(116, 114, 0);
+            opacity: 0.75;
+        }
 
         .main {
             border: 5px outset rgb(0, 31, 71);
@@ -76,6 +92,9 @@
             </div>
             <div class="notifyError" id="notifyError">
                 <p id="notifyErrorText" style="font-size:14px;font-family:verdana;color:rgb(255, 255, 255)"></p>
+            </div>
+            <div class="notifyYellow" id="notifyYellow">
+                <p id="notifyYellowText" style="font-size:14px;font-family:verdana;color:rgb(255, 255, 255)"></p>
             </div>
         </center>
         <div class="main">
@@ -218,6 +237,13 @@
         function notify(msg) { // Normal
             var notifier = document.getElementById("notify");
             var notifierText = document.getElementById("notifyText");
+            notifierText.innerText = msg;
+            notifier.style.visibility = 'visible';
+            setTimeout(() => {notifier.style.visibility='hidden'}, 5000);
+        }
+        function notifyYellow(msg) { // Normal
+            var notifier = document.getElementById("notifyYellow");
+            var notifierText = document.getElementById("notifyYellowText");
             notifierText.innerText = msg;
             notifier.style.visibility = 'visible';
             setTimeout(() => {notifier.style.visibility='hidden'}, 5000);
@@ -528,7 +554,7 @@
 
 		function handleSignOutClick(event) {
 		  gapi.auth2.getAuthInstance().signOut();
-          notify("Signed out.");
+          notifyYellow("Signed out.");
 		}
     </script>
 
