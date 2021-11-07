@@ -117,7 +117,7 @@
                 <button id="update-button2" onclick="addImgs()" style="border:0px;border-radius:10px;height:30px;background-color:rgb(161, 199, 255)"><b style="color:rgb(56, 120, 172)">Load Images With Tags</b></button>
                 <br/>
                 <br/>
-                <b style="font-size:20px;font-family:verdana;color:rgb(0, 35, 63)">from</b> <input type="text" id="from" name="from" placeholder="0"> <b style="font-size:20px;font-family:verdana;color:rgb(0, 35, 63)">to</b> <input type="text" id="to" name="to" placeholder="max">
+                <b style="font-size:20px;font-family:verdana;color:rgb(0, 35, 63)">from</b> <input type="text" id="from" name="from" placeholder="1"> <b style="font-size:20px;font-family:verdana;color:rgb(0, 35, 63)">to</b> <input type="text" id="to" name="to" placeholder="max">
                 <br/>
                 <br/>
                 <b style="font-size:20px;font-family:verdana;color:rgb(0, 35, 63)">NS</b> <input type="checkbox" id="nsfwCheck">
@@ -396,9 +396,9 @@
             request.then(function(response) {
                 let i = 0;
                 LoadedImages = 0
-                min = document.getElementById("from").value
+                min = document.getElementById("from").value - 1
                 console.log(min);
-                max = document.getElementById("to").value
+                max = document.getElementById("to").value + 1
                 console.log(max);
                 while (i < response.result.values.length) {
                     console.log(LoadedImages);
