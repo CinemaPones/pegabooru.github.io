@@ -405,6 +405,8 @@
 		}
 		
 		function addImgs(num) {
+            var PrevNext = document.getElementById("PrevNextButtons");
+            PrevNext.style.visibility = 'visible';
             if (num == 0) {
                 LoadedImages = 0
                 NextLoadedImages = 10
