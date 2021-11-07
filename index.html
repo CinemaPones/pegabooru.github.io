@@ -396,9 +396,9 @@
             request.then(function(response) {
                 let i = 0;
                 LoadedImages = 0
-                min = document.getElementById("from").value - 1
+                min = parseInt(document.getElementById("from").value) - 1
                 console.log(min);
-                max = document.getElementById("to").value + 1
+                max = parseInt(document.getElementById("to").value) + 1
                 console.log(max);
                 while (i < response.result.values.length) {
                     console.log(LoadedImages);
