@@ -210,8 +210,6 @@
         document.getElementById("imgsize").addEventListener("change", ev => {
             imgsize = document.getElementById("imgsize").value+'%'
         })
-	
-        LoadedImages = 0
     
 		// Notifications
         function notify(msg) { // Normal
@@ -397,6 +395,7 @@
             var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Images With Tags
             request.then(function(response) {
                 let i = 0;
+                LoadedImages = 0
                 while (i < response.result.values.length) {
                     // Add images to website
 
