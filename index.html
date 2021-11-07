@@ -414,7 +414,7 @@
             var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Images With Tags
             request.then(function(response) {
                 let i = 0;
-                while (i < response.result.values.length) {
+                while (i < 2) {
                     // Add images to website
 
                     nsfwCheck = document.getElementById("nsfwCheck");
