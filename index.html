@@ -196,12 +196,12 @@
                 },
                 body: formdata
             }).then(data => data.json()).then(data => {
-                if (!isNaN(parseInt(ev.target.files[0])+1)) {
+                if (ev.target.files[0] != null) {
                     img.src = data.data.link
                     url.innerText = data.data.link
                     imglink = data.data.link
                     document.getElementById("dirlink").value = data.data.link
-                } else if (!isNaN(parseInt(document.getElementById("dirlink").value)+1)) {
+                } else if (document.getElementById("dirlink").value != "") {
                     img.src = document.getElementById("dirlink").value
                     url.innerText = document.getElementById("dirlink").value
                     imglink = document.getElementById("dirlink").value
