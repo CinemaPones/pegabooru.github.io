@@ -134,7 +134,7 @@
             <br/>
 
                 <button id="update-button" onclick="addImgsAll()" style="border:0px;border-radius:10px;height:30px;background-color:rgb(161, 199, 255)"><b style="color:rgb(56, 120, 172)">Load All Images</b></button>
-                <button id="update-button2" onclick="addImgs()" style="border:0px;border-radius:10px;height:30px;background-color:rgb(161, 199, 255)"><b style="color:rgb(56, 120, 172)">Load Images With Tags</b></button>
+                <button id="update-button2" onclick="addImgs(0)" style="border:0px;border-radius:10px;height:30px;background-color:rgb(161, 199, 255)"><b style="color:rgb(56, 120, 172)">Load Images With Tags</b></button>
                 <br/>
                 <br/>
                 <b style="font-size:20px;font-family:verdana;color:rgb(0, 35, 63)">NS</b> <input type="checkbox" id="nsfwCheck">
@@ -246,7 +246,6 @@
             setTimeout(() => {notifier.style.visibility='hidden'}, 5000);
         }
 
-        LoadedImages = 0
         NewLoadedImages = 0
         i = 0
         noRun = 0
@@ -405,6 +404,8 @@
 		}
 		
 		function addImgs(num) {
+            var PrevNext = document.getElementById("notify");
+            PrevNext.style.visibility = 'visible';
 			document.getElementById('body').innerHTML = "";
 			var params = {
 				// The ID of the spreadsheet to retrieve data from.
@@ -416,6 +417,9 @@
 
             var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Images With Tags
             request.then(function(response) {
+                if (num == 0) {
+                    i = 0
+                }
                 NewLoadedImages = i + 10
                 if (num == -10 && i != 0) {
                     i -= 10
