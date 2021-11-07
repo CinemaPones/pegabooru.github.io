@@ -402,9 +402,9 @@
                 if (max = 'max') {
                     max = 9999999
                 }
-                while (i < response.result.values.length) {
+                while (i < response.result.values.length && LoadedImages+1 > min) {
                     console.log(LoadedImages);
-                    if (!(min < LoadedImages+1 && LoadedImages < max+1)) {
+                    if (LoadedImages+1 > min && LoadedImages > max+1) {
                         break;
                     }
                     // Add images to website
