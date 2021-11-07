@@ -396,15 +396,14 @@
             request.then(function(response) {
                 let i = 0;
                 LoadedImages = 0
-                while (i < response.result.values.length) {
+                min = document.getElementById("from").value
+                max = document.getElementById("to").value
+
+                if (max = 'max') {
+                    max = 9999999
+                }
+                while (i < response.result.values.length && (min < LoadedImages && LoadedImages < max)) {
                     // Add images to website
-
-                    min = document.getElementById("from").value
-                    max = document.getElementById("to").value
-
-                    if (max = 'max') {
-                        max = 9999999
-                    }
 
                     nsfwCheck = document.getElementById("nsfwCheck");
                     maleCheck = document.getElementById("maleCheck");
@@ -424,14 +423,12 @@
 
 					function imgHandle(substr) {
                         LoadedImages += 1
-                        if (min < LoadedImages && LoadedImages < max ) {
-                            var imgs = document.createElement("img");
-                            var src = document.getElementById("body");
-                            imgs.src = response.result.values[i][0].substring(substr);
-                            src.appendChild(imgs);
-                            imgs.style.width = imgsize;
-                            imgs.style.height = 'auto';
-                        }
+                        var imgs = document.createElement("img");
+                        var src = document.getElementById("body");
+                        imgs.src = response.result.values[i][0].substring(substr);
+                        src.appendChild(imgs);
+                        imgs.style.width = imgsize;
+                        imgs.style.height = 'auto';
 					}
 
                     if (nsfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') { // nsfw
