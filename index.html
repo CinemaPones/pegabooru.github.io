@@ -72,10 +72,10 @@
     <head>
         <center>
             <div class="notify" id="notify">
-                <p id="notifyText" style="color:rgb(255, 255, 255)"></p>
+                <p id="notifyText" style="font-size:8px;font-family:verdana;color:rgb(255, 255, 255)"></p>
             </div>
             <div class="notifyError" id="notifyError">
-                <p id="notifyText" style="color:rgb(255, 255, 255)"></p>
+                <p id="notifyErrorText" style="font-size:8px;font-family:verdana;color:rgb(255, 255, 255)"></p>
             </div>
         </center>
         <div class="main">
@@ -215,6 +215,13 @@
         function notify(msg) {
             var notifier = document.getElementById("notify");
             var notifierText = document.getElementById("notifyText");
+            notifierText.innerText = msg;
+            notifier.style.visibility = 'visible';
+            setTimeout(() => {notifier.style.visibility='hidden'}, 5000);
+        }
+        function error(msg) {
+            var notifier = document.getElementById("notifyError");
+            var notifierText = document.getElementById("notifyErrorText");
             notifierText.innerText = msg;
             notifier.style.visibility = 'visible';
             setTimeout(() => {notifier.style.visibility='hidden'}, 5000);
