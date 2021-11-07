@@ -400,6 +400,11 @@
                 console.log(min);
                 max = parseInt(document.getElementById("to").value) + 1
                 console.log(max);
+                if (isNaN(min)) {
+                    min = 0
+                } else if (isNaN(max)) {
+                    max = 9999999
+                }
                 while (i < response.result.values.length) {
                     console.log(LoadedImages);
                     // Add images to website
