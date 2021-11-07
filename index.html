@@ -3,6 +3,39 @@
     <style>
         body {background-image:url('https://i.imgur.com/VCSGaCz.png')}
 
+        .notify {
+            z-index: 999;
+            visibility: hidden;
+            border-radius: 10px;
+            height:30px;
+            width:75%;
+            position: fixed;
+            top: 1em;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            background-color: rgb(0, 116, 77);
+            opacity: 0.75;
+        }
+        .notifyError {
+            z-index: 999;
+            visibility: hidden;
+            border-radius: 10px;
+            height:30px;
+            width:75%;
+            position: fixed;
+            top: 1em;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content:center;
+            align-items: center;
+            background-color: rgb(116, 0, 0);
+            opacity: 0.75;
+        }
+
         .main {
             border: 5px outset rgb(0, 31, 71);
             border-radius: 25px;
@@ -37,6 +70,14 @@
 
 
     <head>
+        <center>
+            <div class="notify" id="notify">
+                <p id="notifyText" style="color:rgb(255, 255, 255)"></p>
+            </div>
+            <div class="notifyError" id="notifyError">
+                <p id="notifyText" style="color:rgb(255, 255, 255)"></p>
+            </div>
+        </center>
         <div class="main">
             <center>
                 <div class="header">
@@ -171,6 +212,14 @@
 
 		ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 		
+        function notify(msg) {
+            var notifier = document.getElementById("notify");
+            var notifierText = document.getElementById("notifyText");
+            notifierText.innerText = msg;
+            notifier.style.visibility = 'visible';
+            setTimeout(() => {notifier.style.visibility='hidden'}, 5000);
+        }
+
 		function update() { // Update Google Sheets
             nsfwCheck = document.getElementById("nsfwCheck");
             maleCheck = document.getElementById("maleCheck");
@@ -228,31 +277,37 @@
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
 					request.then(function(response) {
 						console.log(response.result);
+                        notify("Image Submitted");
 					});
 				} else if (nsfwMale) { // If NSFW and MALE
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyMale);
 					request.then(function(response) {
 						console.log(response.result);
+                        notify("Image Submitted");
 					});
 				} else if (nsfwFemale) { // If NSFW and FEMALE
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyFemale);
 					request.then(function(response) {
 						console.log(response.result);
+                        notify("Image Submitted");
 					});
 				} else if (sfwMale) { // SFW and MALE
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeMale);
 					request.then(function(response) {
 						console.log(response.result);
+                        notify("Image Submitted");
 					});
 				} else if (sfwFemale) { // If SFW and FEMALE
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeFemale);
 					request.then(function(response) {
 						console.log(response.result);
+                        notify("Image Submitted");
 					});
 				} else if (sfw) { // If SFW
 					var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafe);
 					request.then(function(response) {
 						console.log(response.result);
+                        notify("Image Submitted");
 					});					
 				}
 			}
@@ -404,6 +459,7 @@
 		function updateSignInStatus(isSignedIn) {
 		  if (isSignedIn) {
 			get();
+            notify("Signed In");
 		  }
 		}
 
@@ -413,6 +469,7 @@
 
 		function handleSignOutClick(event) {
 		  gapi.auth2.getAuthInstance().signOut();
+          notify("Signed Out");
 		}
     </script>
 
