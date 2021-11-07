@@ -417,54 +417,56 @@
 
             var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Images With Tags
             request.then(function(response) {
-                while (i < response.result.values.length) {
-                    console.log(i);
-                    // Add images to website
+                if (LoadedImages % 10 == 0) {
+                    while (i < response.result.values.length) {
+                        console.log(i);
+                        // Add images to website
 
-                    nsfwCheck = document.getElementById("nsfwCheck");
-                    maleCheck = document.getElementById("maleCheck");
-                    femaleCheck = document.getElementById("femaleCheck");
+                        nsfwCheck = document.getElementById("nsfwCheck");
+                        maleCheck = document.getElementById("maleCheck");
+                        femaleCheck = document.getElementById("femaleCheck");
 
-                    nsfwOnly = (nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
-                    nsfwOnly2 = (nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
-                    nsfw = (nsfwOnly || nsfwOnly2)
-                    nsfwMale = (nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
-                    nsfwFemale = (nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
+                        nsfwOnly = (nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
+                        nsfwOnly2 = (nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
+                        nsfw = (nsfwOnly || nsfwOnly2)
+                        nsfwMale = (nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
+                        nsfwFemale = (nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
 
-                    sfwOnly = (!nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
-                    sfwOnly2 = (!nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
-                    sfw = (sfwOnly || sfwOnly2)
-                    sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
-                    sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
+                        sfwOnly = (!nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
+                        sfwOnly2 = (!nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
+                        sfw = (sfwOnly || sfwOnly2)
+                        sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
+                        sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
 
-					function imgHandle(substr) {
-                        if (LoadedImages < NextLoadedImages) {
-                            var imgs = document.createElement("img");
-                            var src = document.getElementById("body");
-                            imgs.src = response.result.values[i][0].substring(substr);
-                            src.appendChild(imgs);
-                            imgs.style.width = imgsize;
-                            imgs.style.height = 'auto';
-                            LoadedImages += 1
-                            KeepIndex = i + 1
+                        function imgHandle(substr) {
+                            if (LoadedImages < NextLoadedImages) {
+                                var imgs = document.createElement("img");
+                                var src = document.getElementById("body");
+                                imgs.src = response.result.values[i][0].substring(substr);
+                                src.appendChild(imgs);
+                                imgs.style.width = imgsize;
+                                imgs.style.height = 'auto';
+                                LoadedImages += 1
+                                KeepIndex = i + 1
+                            }
                         }
-					}
 
-                    if (nsfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') { // nsfw
-                        imgHandle(5);
-                    } else if (nsfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'M') { // nsfwMale
-                        imgHandle(10);
-                    } else if (nsfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') { // nsfwFemale
-                        imgHandle(12);
-                    } else if (sfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'h') { // sfw
-                        imgHandle(4);
-                    } else if (sfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'M') { // sfwMale
-                        imgHandle(9);
-                    } else if (sfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'F') { // sfwFemale
-                        imgHandle(11);
+                        if (nsfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') { // nsfw
+                            imgHandle(5);
+                        } else if (nsfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'M') { // nsfwMale
+                            imgHandle(10);
+                        } else if (nsfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') { // nsfwFemale
+                            imgHandle(12);
+                        } else if (sfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'h') { // sfw
+                            imgHandle(4);
+                        } else if (sfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'M') { // sfwMale
+                            imgHandle(9);
+                        } else if (sfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'F') { // sfwFemale
+                            imgHandle(11);
+                        }
+
+                        i++;
                     }
-
-                    i++;
                 }
 
             }, function(reason) {
