@@ -57,15 +57,6 @@
             background-color: rgb(0, 76, 116);
         }
 
-        .PrevNextButtons {
-            z-index: 999;
-            visibility: hidden;
-            width:90%;
-            position: fixed;
-            bottom: 1em;
-            opacity: 1;
-        }
-
         .imageupload {
             background-image:url('https://i.imgur.com/itV9erm.png');
             background-size:cover;
@@ -85,11 +76,6 @@
             </div>
             <div class="notifyError" id="notifyError">
                 <p id="notifyErrorText" style="font-size:14px;font-family:verdana;color:rgb(255, 255, 255)"></p>
-            </div>
-            
-            <div class="PrevNextButtons" id="PrevNextButtons">
-                <button id="previous" onclick="addImgs(-10);OldKeepIndex=KeepIndex;" style="left:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Prev</b></button>
-                <button id="next" onclick="addImgs(10)" style="right:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Next</b></button>
             </div>
         </center>
         <div class="main">
@@ -128,7 +114,7 @@
             <br/>
 
                 <button id="update-button" onclick="addImgsAll()" style="border:0px;border-radius:10px;height:30px;background-color:rgb(161, 199, 255)"><b style="color:rgb(56, 120, 172)">Load All Images</b></button>
-                <button id="update-button2" onclick="addImgs(10);LoadedImages=0;NextLoadedImages=10;KeepIndex=0;i=0" style="border:0px;border-radius:10px;height:30px;background-color:rgb(161, 199, 255)"><b style="color:rgb(56, 120, 172)">Load Images With Tags</b></button>
+                <button id="update-button2" onclick="addImgs()" style="border:0px;border-radius:10px;height:30px;background-color:rgb(161, 199, 255)"><b style="color:rgb(56, 120, 172)">Load Images With Tags</b></button>
                 <br/>
                 <br/>
                 <b style="font-size:20px;font-family:verdana;color:rgb(0, 35, 63)">NS</b> <input type="checkbox" id="nsfwCheck">
@@ -223,7 +209,7 @@
         })
 	
 	
-
+    
 		// Notifications
         function notify(msg) { // Normal
             var notifier = document.getElementById("notify");
@@ -240,10 +226,7 @@
             setTimeout(() => {notifier.style.visibility='hidden'}, 5000);
         }
 
-        LoadedImages = 0
-        NextLoadedImages = 0
-        KeepIndex = 0
-        i = 0
+
 
         ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 
@@ -357,8 +340,6 @@
 		}
 		
 		function addImgsAll() {
-            var PrevNext = document.getElementById("PrevNextButtons");
-            PrevNext.style.visibility = 'visible';
 			document.getElementById('body').innerHTML = "";
 			var params = {
 				// The ID of the spreadsheet to retrieve data from.
@@ -400,16 +381,7 @@
 			});
 		}
 		
-		function addImgs(num) {
-            var PrevNext = document.getElementById("PrevNextButtons");
-            PrevNext.style.visibility = 'visible';
-            i = KeepIndex
-            if (num == -10) {
-                LoadedImages -= 10
-                i = OldKeepIndex
-            }
-            NextLoadedImages = LoadedImages + 10
-
+		function addImgs() {
 			document.getElementById('body').innerHTML = "";
 			var params = {
 				// The ID of the spreadsheet to retrieve data from.
@@ -421,55 +393,50 @@
 
             var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Images With Tags
             request.then(function(response) {
-                if (LoadedImages % 10 == 0) {
-                    while (i < response.result.values.length) {
-                        // Add images to website
+                let i = 0;
+                while (i < response.result.values.length) {
+                    // Add images to website
 
-                        nsfwCheck = document.getElementById("nsfwCheck");
-                        maleCheck = document.getElementById("maleCheck");
-                        femaleCheck = document.getElementById("femaleCheck");
+                    nsfwCheck = document.getElementById("nsfwCheck");
+                    maleCheck = document.getElementById("maleCheck");
+                    femaleCheck = document.getElementById("femaleCheck");
 
-                        nsfwOnly = (nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
-                        nsfwOnly2 = (nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
-                        nsfw = (nsfwOnly || nsfwOnly2)
-                        nsfwMale = (nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
-                        nsfwFemale = (nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
+                    nsfwOnly = (nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
+                    nsfwOnly2 = (nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
+                    nsfw = (nsfwOnly || nsfwOnly2)
+                    nsfwMale = (nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
+                    nsfwFemale = (nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
 
-                        sfwOnly = (!nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
-                        sfwOnly2 = (!nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
-                        sfw = (sfwOnly || sfwOnly2)
-                        sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
-                        sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
+                    sfwOnly = (!nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
+                    sfwOnly2 = (!nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
+                    sfw = (sfwOnly || sfwOnly2)
+                    sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
+                    sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
 
-                        function imgHandle(substr) {
-                            if (LoadedImages < NextLoadedImages) {
-                                var imgs = document.createElement("img");
-                                var src = document.getElementById("body");
-                                imgs.src = response.result.values[i][0].substring(substr);
-                                src.appendChild(imgs);
-                                imgs.style.width = imgsize;
-                                imgs.style.height = 'auto';
-                                LoadedImages += 1
-                                KeepIndex = i + 1
-                            }
-                        }
+					function imgHandle(substr) {
+						var imgs = document.createElement("img");
+                        var src = document.getElementById("body");
+						imgs.src = response.result.values[i][0].substring(substr);
+                        src.appendChild(imgs);
+						imgs.style.width = imgsize;
+                        imgs.style.height = 'auto';
+					}
 
-                        if (nsfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') { // nsfw
-                            imgHandle(5);
-                        } else if (nsfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'M') { // nsfwMale
-                            imgHandle(10);
-                        } else if (nsfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') { // nsfwFemale
-                            imgHandle(12);
-                        } else if (sfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'h') { // sfw
-                            imgHandle(4);
-                        } else if (sfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'M') { // sfwMale
-                            imgHandle(9);
-                        } else if (sfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'F') { // sfwFemale
-                            imgHandle(11);
-                        }
-
-                        i++;
+                    if (nsfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') { // nsfw
+                        imgHandle(5);
+                    } else if (nsfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'M') { // nsfwMale
+                        imgHandle(10);
+                    } else if (nsfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') { // nsfwFemale
+                        imgHandle(12);
+                    } else if (sfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'h') { // sfw
+                        imgHandle(4);
+                    } else if (sfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'M') { // sfwMale
+                        imgHandle(9);
+                    } else if (sfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'F') { // sfwFemale
+                        imgHandle(11);
                     }
+
+                    i++;
                 }
 
             }, function(reason) {
@@ -502,7 +469,7 @@
 		function updateSignInStatus(isSignedIn) {
 		  if (isSignedIn) {
 			get();
-            notify("Signed in.");
+            notify("Signed In");
 		  }
 		}
 
@@ -512,7 +479,7 @@
 
 		function handleSignOutClick(event) {
 		  gapi.auth2.getAuthInstance().signOut();
-          notify("Signed out.");
+          notify("Signed Out");
 		}
     </script>
 
