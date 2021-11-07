@@ -399,11 +399,7 @@
                 min = document.getElementById("from").value
                 console.log(min);
                 max = document.getElementById("to").value
-
-                if (max = 'max') {
-                    max = 9999999
-                    console.log(max);
-                }
+                console.log(max);
                 while (i < response.result.values.length) {
                     console.log(LoadedImages);
                     // Add images to website
@@ -426,12 +422,14 @@
 
 					function imgHandle(substr) {
                         LoadedImages += 1
-                        var imgs = document.createElement("img");
-                        var src = document.getElementById("body");
-                        imgs.src = response.result.values[i][0].substring(substr);
-                        src.appendChild(imgs);
-                        imgs.style.width = imgsize;
-                        imgs.style.height = 'auto';
+                        if (LoadedImages > min && LoadedImages < max) {
+                            var imgs = document.createElement("img");
+                            var src = document.getElementById("body");
+                            imgs.src = response.result.values[i][0].substring(substr);
+                            src.appendChild(imgs);
+                            imgs.style.width = imgsize;
+                            imgs.style.height = 'auto';
+                        }
 					}
 
                     if (nsfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') { // nsfw
