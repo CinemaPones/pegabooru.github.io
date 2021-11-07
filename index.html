@@ -422,7 +422,7 @@
 
 					function imgHandle(substr) {
                         LoadedImages += 1
-                        if (LoadedImages > min && LoadedImages < max) {
+                        if (LoadedImages > min && LoadedImages < max+1) {
                             var imgs = document.createElement("img");
                             var src = document.getElementById("body");
                             imgs.src = response.result.values[i][0].substring(substr);
