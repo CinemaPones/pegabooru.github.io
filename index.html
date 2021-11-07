@@ -404,11 +404,13 @@
             var PrevNext = document.getElementById("PrevNextButtons");
             PrevNext.style.visibility = 'visible';
             i = KeepIndex
+            if (num == -10) {
+                LoadedImages -= 10
+                i = OldKeepIndex
+            }
             NextLoadedImages = LoadedImages + num
 
-            if (LoadedImages % 10 == 0) {
-                document.getElementById('body').innerHTML = "";
-            }
+			document.getElementById('body').innerHTML = "";
 			var params = {
 				// The ID of the spreadsheet to retrieve data from.
 				spreadsheetId: ssID,
@@ -421,8 +423,9 @@
             request.then(function(response) {
                 if (LoadedImages % 10 == 0) {
                     while (i < response.result.values.length) {
-                        console.log(i);
                         // Add images to website
+
+                        OldKeepIndex = i - 1
 
                         nsfwCheck = document.getElementById("nsfwCheck");
                         maleCheck = document.getElementById("maleCheck");
