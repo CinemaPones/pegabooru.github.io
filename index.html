@@ -397,16 +397,15 @@
                 let i = 0;
                 LoadedImages = 0
                 min = document.getElementById("from").value
+                console.log(min);
                 max = document.getElementById("to").value
 
                 if (max = 'max') {
                     max = 9999999
+                    console.log(max);
                 }
-                while (i < response.result.values.length && LoadedImages+1 > min) {
+                while (i < response.result.values.length) {
                     console.log(LoadedImages);
-                    if (LoadedImages+1 > min && LoadedImages > max+1) {
-                        break;
-                    }
                     // Add images to website
 
                     nsfwCheck = document.getElementById("nsfwCheck");
