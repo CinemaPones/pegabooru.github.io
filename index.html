@@ -380,7 +380,7 @@
                     sfw = (sfwOnly || sfwOnly2)
                     sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
                     sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
-                    
+
 					function imgHandle(substr) {
                         LoadedImages += 1
                         if (LoadedImages > min && LoadedImages < max) {
@@ -406,9 +406,8 @@
                         } else if (response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') { // NSFW Female
                             imgHandle(12);
                         }
-                        imgs.style.width = imgsize;
-                        imgs.style.height = 'auto';
                     }
+                    
 					i++;
 				}
 			}, function(reason) {
