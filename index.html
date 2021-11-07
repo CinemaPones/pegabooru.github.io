@@ -88,7 +88,7 @@
             </div>
             
             <div class="PrevNextButtons" id="PrevNextButtons">
-                <button id="previous" onclick="addImgs(-10)" style="left:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Prev</b></button>
+                <button id="previous" onclick="addImgs(-10);OldKeepIndex=KeepIndex;" style="left:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Prev</b></button>
                 <button id="next" onclick="addImgs(10)" style="right:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Next</b></button>
             </div>
         </center>
@@ -422,7 +422,6 @@
             var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Images With Tags
             request.then(function(response) {
                 if (LoadedImages % 10 == 0) {
-                    firstTime = 1
                     while (i < response.result.values.length) {
                         // Add images to website
 
@@ -443,10 +442,6 @@
                         sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
 
                         function imgHandle(substr) {
-                            if (firstTime == 1) {
-                                OldKeepIndex = i - 1
-                                firstTime = 0
-                            }
                             if (LoadedImages < NextLoadedImages) {
                                 var imgs = document.createElement("img");
                                 var src = document.getElementById("body");
