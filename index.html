@@ -92,10 +92,10 @@
             <div class="notifyError" id="notifyError">
                 <p id="notifyErrorText" style="font-size:14px;font-family:verdana;color:rgb(255, 255, 255)"></p>
             </div>
-
+            
             <div class="PrevNextButtons" id="PrevNextButtons">
-                <button id="previous" onclick="addImgs(10)" style="right:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Prev</b></button>
-                <button id="next" onclick="addImgs(-10)" style="right:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Next</b></button>
+                <button id="previous" onclick="addImgs()" style="right:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Prev</b></button>
+                <button id="next" onclick="addImgs()" style="right:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Next</b></button>
             </div>
         </center>
         <div class="main">
@@ -134,7 +134,7 @@
             <br/>
 
                 <button id="update-button" onclick="addImgsAll()" style="border:0px;border-radius:10px;height:30px;background-color:rgb(161, 199, 255)"><b style="color:rgb(56, 120, 172)">Load All Images</b></button>
-                <button id="update-button2" onclick="addImgs(0)" style="border:0px;border-radius:10px;height:30px;background-color:rgb(161, 199, 255)"><b style="color:rgb(56, 120, 172)">Load Images With Tags</b></button>
+                <button id="update-button2" onclick="addImgs()" style="border:0px;border-radius:10px;height:30px;background-color:rgb(161, 199, 255)"><b style="color:rgb(56, 120, 172)">Load Images With Tags</b></button>
                 <br/>
                 <br/>
                 <b style="font-size:20px;font-family:verdana;color:rgb(0, 35, 63)">NS</b> <input type="checkbox" id="nsfwCheck">
@@ -246,9 +246,7 @@
             setTimeout(() => {notifier.style.visibility='hidden'}, 5000);
         }
 
-        NewLoadedImages = 0
-        i = 0
-        noRun = 0
+
 
         ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 
@@ -403,19 +401,8 @@
 			});
 		}
 		
-		function addImgs(num) {
-            var PrevNext = document.getElementById("PrevNextButtons");
-            PrevNext.style.visibility = 'visible';
+		function addImgs() {
 			document.getElementById('body').innerHTML = "";
-            if (num == 0) {
-                i = 0
-            }
-            NewLoadedImages = i + 10
-            if (num == -10 && i != 0) {
-                i -= 10
-            } else if (num == -10 && i == 0) {
-                noRun = 1
-            }
 			var params = {
 				// The ID of the spreadsheet to retrieve data from.
 				spreadsheetId: ssID,
@@ -426,7 +413,8 @@
 
             var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Images With Tags
             request.then(function(response) {
-                while (i < NewLoadedImages && noRun != 1) {
+                let i = 0;
+                while (i < 10) {
                     // Add images to website
 
                     nsfwCheck = document.getElementById("nsfwCheck");
