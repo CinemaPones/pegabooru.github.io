@@ -248,6 +248,8 @@
 
         LoadedImages = 0
         NextLoadedImages = 0
+        KeepIndex = 0
+        i = 0
 
         ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 
@@ -410,7 +412,9 @@
             if (num == 0) {
                 LoadedImages = 0
                 NextLoadedImages = 10
+                i = 0
             }
+            i = KeepIndex
             NextLoadedImages = LoadedImages + num
 
 			document.getElementById('body').innerHTML = "";
@@ -424,8 +428,7 @@
 
             var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Images With Tags
             request.then(function(response) {
-                let i = 0;
-                while (i < response.result.values.length && LoadedImages < NextLoadedImages) {
+                while (i < response.result.values.length) {
                     // Add images to website
 
                     nsfwCheck = document.getElementById("nsfwCheck");
@@ -445,13 +448,16 @@
                     sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
 
 					function imgHandle(substr) {
-						var imgs = document.createElement("img");
-                        var src = document.getElementById("body");
-						imgs.src = response.result.values[i][0].substring(substr);
-                        src.appendChild(imgs);
-						imgs.style.width = imgsize;
-                        imgs.style.height = 'auto';
-                        LoadedImages += 1
+                        if (LoadedImages < NextLoadedImages) {
+                            var imgs = document.createElement("img");
+                            var src = document.getElementById("body");
+                            imgs.src = response.result.values[i][0].substring(substr);
+                            src.appendChild(imgs);
+                            imgs.style.width = imgsize;
+                            imgs.style.height = 'auto';
+                            LoadedImages += 1
+                            KeepIndex = i
+                        }
 					}
 
                     if (nsfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') { // nsfw
