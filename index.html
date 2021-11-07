@@ -34,7 +34,7 @@
             align-items: center;
             background-color: rgb(116, 0, 0);
             opacity: 0.75;
-        }1
+        }
 
         .main {
             border: 5px outset rgb(0, 31, 71);
@@ -94,8 +94,8 @@
             </div>
             
             <div class="PrevNextButtons" id="PrevNextButtons">
-                <button id="previous" onclick="addImgs()" style="right:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Prev</b></button>
-                <button id="next" onclick="addImgs()" style="right:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Next</b></button>
+                <button id="previous" onclick="addImgs(-10)" style="right:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Prev</b></button>
+                <button id="next" onclick="addImgs(10)" style="right:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Next</b></button>
             </div>
         </center>
         <div class="main">
@@ -134,7 +134,7 @@
             <br/>
 
                 <button id="update-button" onclick="addImgsAll()" style="border:0px;border-radius:10px;height:30px;background-color:rgb(161, 199, 255)"><b style="color:rgb(56, 120, 172)">Load All Images</b></button>
-                <button id="update-button2" onclick="addImgs()" style="border:0px;border-radius:10px;height:30px;background-color:rgb(161, 199, 255)"><b style="color:rgb(56, 120, 172)">Load Images With Tags</b></button>
+                <button id="update-button2" onclick="addImgs(0)" style="border:0px;border-radius:10px;height:30px;background-color:rgb(161, 199, 255)"><b style="color:rgb(56, 120, 172)">Load Images With Tags</b></button>
                 <br/>
                 <br/>
                 <b style="font-size:20px;font-family:verdana;color:rgb(0, 35, 63)">NS</b> <input type="checkbox" id="nsfwCheck">
@@ -246,7 +246,8 @@
             setTimeout(() => {notifier.style.visibility='hidden'}, 5000);
         }
 
-
+        LoadedImages = 0
+        NextLoadedImages = 0
 
         ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 
@@ -360,6 +361,8 @@
 		}
 		
 		function addImgsAll() {
+            var PrevNext = document.getElementById("PrevNextButtons");
+            PrevNext.style.visibility = 'visible';
 			document.getElementById('body').innerHTML = "";
 			var params = {
 				// The ID of the spreadsheet to retrieve data from.
@@ -401,7 +404,17 @@
 			});
 		}
 		
-		function addImgs() {
+		function addImgs(num) {
+            if (num == 0) {
+                LoadedImages = 0
+                NextLoadedImages = 10
+            }
+            if (LoadedImages != 0) {
+                NextLoadedImages = LoadedImages + num
+            } else if (LoadedImages == 0 && num == -10) {
+                LoadedImages = 0
+                NextLoadedImages = 10
+            }
 			document.getElementById('body').innerHTML = "";
 			var params = {
 				// The ID of the spreadsheet to retrieve data from.
@@ -414,7 +427,7 @@
             var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Images With Tags
             request.then(function(response) {
                 let i = 0;
-                while (i < 2) {
+                while (i < response.result.values.length && LoadedImages < NextLoadedImages) {
                     // Add images to website
 
                     nsfwCheck = document.getElementById("nsfwCheck");
@@ -440,6 +453,7 @@
                         src.appendChild(imgs);
 						imgs.style.width = imgsize;
                         imgs.style.height = 'auto';
+                        LoadedImages += 1
 					}
 
                     if (nsfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') { // nsfw
