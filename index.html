@@ -353,28 +353,62 @@
 			var request = gapi.client.sheets.spreadsheets.values.get(params); // Load All Images
 			request.then(function(response) {
 				let i = 0;
+                LoadedImages = 0
+                min = parseInt(document.getElementById("from").value) - 1
+                max = parseInt(document.getElementById("to").value) + 1
+                if (isNaN(min)) {
+                    min = 0
+                }
+                if (isNaN(max)) {
+                    max = 9999999
+                }
 				while (i < response.result.values.length) {
 					// Add images to website
-					var imgs = document.createElement("img");
-						if (response.result.values[i][0] != null) {
-							if (response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'h') { // Safe
-								imgs.src = response.result.values[i][0].substring(4);
-							} else if (response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'M') { // Safe Male
-								imgs.src = response.result.values[i][0].substring(9);
-							} else if (response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'F') { // Safe Female
-								imgs.src = response.result.values[i][0].substring(11);
-							} else if (response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') { // NSFW
-								imgs.src = response.result.values[i][0].substring(5);
-							} else if (response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'M') { // NSFW Male
-								imgs.src = response.result.values[i][0].substring(10);
-							} else if (response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') { // NSFW Female
-								imgs.src = response.result.values[i][0].substring(12);
-							}
-							imgs.style.width = imgsize;
-							imgs.style.height = 'auto';
-						}
-					var src = document.getElementById("body");
-					src.appendChild(imgs);
+
+                    nsfwCheck = document.getElementById("nsfwCheck");
+                    maleCheck = document.getElementById("maleCheck");
+                    femaleCheck = document.getElementById("femaleCheck");
+
+                    nsfwOnly = (nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
+                    nsfwOnly2 = (nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
+                    nsfw = (nsfwOnly || nsfwOnly2)
+                    nsfwMale = (nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
+                    nsfwFemale = (nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
+
+                    sfwOnly = (!nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
+                    sfwOnly2 = (!nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
+                    sfw = (sfwOnly || sfwOnly2)
+                    sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
+                    sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
+                    
+					function imgHandle(substr) {
+                        LoadedImages += 1
+                        if (LoadedImages > min && LoadedImages < max) {
+                            var imgs = document.createElement("img");
+                            var src = document.getElementById("body");
+                            imgs.src = response.result.values[i][0].substring(substr);
+                            src.appendChild(imgs);
+                            imgs.style.width = imgsize;
+                            imgs.style.height = 'auto';
+                        }
+					}
+                    if (response.result.values[i][0] != null) {
+                        if (response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'h') { // Safe
+                            imgHandle(4);
+                        } else if (response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'M') { // Safe Male
+                            imgHandle(9);
+                        } else if (response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'F') { // Safe Female
+                            imgHandle(11);
+                        } else if (response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') { // NSFW
+                            imgHandle(5);
+                        } else if (response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'M') { // NSFW Male
+                            imgHandle(10);
+                        } else if (response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') { // NSFW Female
+                            imgHandle(12);
+                        }
+                        imgs.style.width = imgsize;
+                        imgs.style.height = 'auto';
+                    }
 					i++;
 				}
 			}, function(reason) {
@@ -404,8 +438,6 @@
                 if (isNaN(max)) {
                     max = 9999999
                 }
-                console.log(min);
-                console.log(max);
                 while (i < response.result.values.length) {
                     // Add images to website
 
