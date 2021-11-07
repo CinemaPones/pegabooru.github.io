@@ -412,10 +412,6 @@
                 NextLoadedImages = 10
             }
             NextLoadedImages = LoadedImages + num
-            if (LoadedImages < 10 && num == -10) {
-                LoadedImages = 0
-                NextLoadedImages = 10
-            }
 
 			document.getElementById('body').innerHTML = "";
 			var params = {
