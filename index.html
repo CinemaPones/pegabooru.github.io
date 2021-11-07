@@ -60,15 +60,12 @@
         .PrevNextButtons {
             z-index: 999;
             visibility: hidden;
-            height:30px;
             width:90%;
             position: fixed;
-            top: 1em;
+            bottom: 1em;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            justify-content:center;
-            align-items:center;
             opacity: 1;
         }
 
@@ -94,7 +91,7 @@
             </div>
             
             <div class="PrevNextButtons" id="PrevNextButtons">
-                <button id="previous" onclick="addImgs(-10)" style="right:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Prev</b></button>
+                <button id="previous" onclick="addImgs(-10)" style="left:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Prev</b></button>
                 <button id="next" onclick="addImgs(10)" style="right:1em;border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Next</b></button>
             </div>
         </center>
