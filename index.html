@@ -411,11 +411,13 @@
                 LoadedImages = 0
                 NextLoadedImages = 10
             }
-            if (LoadedImages != 0) {
+            if (LoadedImages > 9) {
                 NextLoadedImages = LoadedImages + num
             } else if (LoadedImages == 0 && num == -10) {
                 LoadedImages = 0
                 NextLoadedImages = 10
+            } else {
+                NextLoadedImages = LoadedImages + num
             }
 			document.getElementById('body').innerHTML = "";
 			var params = {
