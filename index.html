@@ -400,13 +400,13 @@
                 max = parseInt(document.getElementById("to").value) + 1
                 if (isNaN(min)) {
                     min = 0
-                } else if (isNaN(max)) {
+                }
+                if (isNaN(max)) {
                     max = 9999999
                 }
                 console.log(min);
                 console.log(max);
                 while (i < response.result.values.length) {
-                    console.log(LoadedImages);
                     // Add images to website
 
                     nsfwCheck = document.getElementById("nsfwCheck");
