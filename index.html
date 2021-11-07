@@ -469,7 +469,7 @@
 		function updateSignInStatus(isSignedIn) {
 		  if (isSignedIn) {
 			get();
-            notify("Signed In");
+            notify("Signed in.");
 		  }
 		}
 
@@ -479,7 +479,7 @@
 
 		function handleSignOutClick(event) {
 		  gapi.auth2.getAuthInstance().signOut();
-          notify("Signed Out");
+          notify("Signed out.");
 		}
     </script>
 
