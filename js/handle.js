@@ -259,7 +259,7 @@ function addImgsAll() {
                     if (response.result.values[i][0].substring(substr).match(/\.(mp4|webm)$/)) {
                         var imgs = document.createElement("video");
                         imgs.setAttribute("controls","controls")
-                        imgs.setAttribute("loop","loop")
+                        imgs.setAttribute("loop","true")
                     } else {
                         var imgs = document.createElement("img");
                     }
@@ -340,7 +340,7 @@ function addImgs() {
                     if (response.result.values[i][0].substring(substr).match(/\.(mp4|webm)$/)) {
                         var imgs = document.createElement("video");
                         imgs.setAttribute("controls","controls")
-                        imgs.setAttribute("loop","loop")
+                        imgs.setAttribute("loop","true")
                     } else {
                         var imgs = document.createElement("img");
                     }
