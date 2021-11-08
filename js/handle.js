@@ -85,6 +85,14 @@ function error(msg) { // Notify Error
     setTimeout(() => {notifier.style.visibility='hidden'}, 5000);
 }
 
+function isValidUrl(imgurl) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', imgurl, false);
+    xhr.send();
+     
+    return xhr.status !== 404;
+}
+
 
 
 ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
@@ -114,7 +122,7 @@ function update() { // Update Google Sheets
         valueInputOption: 'RAW',
     };
     
-    if (document.getElementById("dirlink").value.match(/\.(jpeg|jpg|gif|png)$/) != null) {
+    if (document.getElementById("dirlink").value.match(/\.(jpeg|jpg|gif|png)$/) != null && isValidUrl(document.getElementById("dirlink").value)) {
         img.src = document.getElementById("dirlink").value
         url.innerText = document.getElementById("dirlink").value
         imglink = document.getElementById("dirlink").value
