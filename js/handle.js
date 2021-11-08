@@ -53,7 +53,7 @@ file.addEventListener("change", ev => {
             url.innerText = data.data.link
             imglink = data.data.link
             document.getElementById("dirlink").value = data.data.link
-        } else if (document.getElementById("dirlink").value.length != 0) {
+        } else if (1) {
             img.src = document.getElementById("dirlink").value
             url.innerText = document.getElementById("dirlink").value
             imglink = document.getElementById("dirlink").value
@@ -118,7 +118,7 @@ function update() { // Update Google Sheets
         valueInputOption: 'RAW',
     };
     
-    if (document.getElementById("dirlink").value.length != 0) {
+    if (document.getElementById("dirlink").value.match(/\.(jpeg|jpg|gif|png)$/) != null) {
         img.src = document.getElementById("dirlink").value
         url.innerText = document.getElementById("dirlink").value
         imglink = document.getElementById("dirlink").value
