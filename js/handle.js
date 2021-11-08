@@ -87,7 +87,7 @@ function error(msg) { // Notify Error
 
 function isValidUrl(imgurl) {
     var xhr = new XMLHttpRequest();
-    xhr.open('HEAD', imgurl, false);
+    xhr.open('GET', imgurl, false);
     xhr.send();
 
     return xhr.status !== 404;
@@ -126,7 +126,7 @@ function update() { // Update Google Sheets
         img.src = document.getElementById("dirlink").value
         url.innerText = document.getElementById("dirlink").value
         imglink = document.getElementById("dirlink").value
-    } else if (document.getElementById("dirlink").value.match(/\.(mp4|webm)$/) != null) {
+    } else if (document.getElementById("dirlink").value.match(/\.(mp4|webm)$/) != null && isValidUrl(document.getElementById("dirlink").value)) {
         img.src = 'https://i.imgur.com/NF2DGHI.png'
         url.innerText = document.getElementById("dirlink").value
         imglink = document.getElementById("dirlink").value
