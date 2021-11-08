@@ -119,7 +119,7 @@ function update() { // Update Google Sheets
         url.innerText = document.getElementById("dirlink").value
         imglink = document.getElementById("dirlink").value
     } else {
-        notifyError("Invalid image link.")
+        error("Invalid image link.")
     }
 
     // Append img link to google sheets
@@ -148,37 +148,37 @@ function update() { // Update Google Sheets
             var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
             request.then(function(response) {
                 console.log(response.result);
-                notify("Image Submitted");
+                notify("Image submitted.");
             });
         } else if (nsfwMale) { // If NSFW and MALE
             var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyMale);
             request.then(function(response) {
                 console.log(response.result);
-                notify("Image Submitted");
+                notify("Image submitted.");
             });
         } else if (nsfwFemale) { // If NSFW and FEMALE
             var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyFemale);
             request.then(function(response) {
                 console.log(response.result);
-                notify("Image Submitted");
+                notify("Image submitted.");
             });
         } else if (sfwMale) { // SFW and MALE
             var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeMale);
             request.then(function(response) {
                 console.log(response.result);
-                notify("Image Submitted");
+                notify("Image submitted.");
             });
         } else if (sfwFemale) { // If SFW and FEMALE
             var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeFemale);
             request.then(function(response) {
                 console.log(response.result);
-                notify("Image Submitted");
+                notify("Image submitted.");
             });
         } else if (sfw) { // If SFW
             var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafe);
             request.then(function(response) {
                 console.log(response.result);
-                notify("Image Submitted");
+                notify("Image submitted.");
             });					
         }
     }
