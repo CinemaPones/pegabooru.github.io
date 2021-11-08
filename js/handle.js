@@ -122,12 +122,16 @@ function update() { // Update Google Sheets
         valueInputOption: 'RAW',
     };
     
-    if (document.getElementById("dirlink").value.match(/\.(jpeg|jpg|gif|png)$/) != null && isValidUrl(document.getElementById("dirlink").value)) {
+    if (document.getElementById("dirlink").value.match(/\.(jpeg|apng|jpg|gif|png)$/) != null && isValidUrl(document.getElementById("dirlink").value)) {
         img.src = document.getElementById("dirlink").value
         url.innerText = document.getElementById("dirlink").value
         imglink = document.getElementById("dirlink").value
+    } else if (document.getElementById("dirlink").value.match(/\.(mp4|webm)$/) != null && isValidUrl(document.getElementById("dirlink").value)) {
+        img.src = 'https://i.imgur.com/NF2DGHI.png'
+        url.innerText = document.getElementById("dirlink").value
+        imglink = document.getElementById("dirlink").value
     } else {
-        error("Invalid image link.")
+        error("Invalid image link.");
     }
 
     // Append img link to google sheets
@@ -252,7 +256,11 @@ function addImgsAll() {
             function imgHandle(substr) {
                 LoadedImages += 1
                 if (LoadedImages > min && LoadedImages < max) {
-                    var imgs = document.createElement("img");
+                    if (response.result.values[i][0].substring(substr).match(/\.(mp4|webm)$/)) {
+                        var imgs = document.createElement("iframe");
+                    } else {
+                        var imgs = document.createElement("img");
+                    }
                     var src = document.getElementById("body");
                     imgs.src = response.result.values[i][0].substring(substr);
                     src.appendChild(imgs);
@@ -327,7 +335,11 @@ function addImgs() {
             function imgHandle(substr) {
                 LoadedImages += 1
                 if (LoadedImages > min && LoadedImages < max) {
-                    var imgs = document.createElement("img");
+                    if (response.result.values[i][0].substring(substr).match(/\.(mp4|webm)$/)) {
+                        var imgs = document.createElement("iframe");
+                    } else {
+                        var imgs = document.createElement("img");
+                    }
                     var src = document.getElementById("body");
                     imgs.src = response.result.values[i][0].substring(substr);
                     src.appendChild(imgs);
