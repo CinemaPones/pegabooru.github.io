@@ -89,7 +89,8 @@ function isValidUrl(imgurl) {
     var xhr = new XMLHttpRequest();
     xhr.open('HEAD', imgurl, false);
     xhr.send();
-     
+    
+    console.log(xhr.status)
     return xhr.status !== 404;
 }
 
