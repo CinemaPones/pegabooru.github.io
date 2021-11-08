@@ -257,7 +257,7 @@ function addImgsAll() {
                 LoadedImages += 1
                 if (LoadedImages > min && LoadedImages < max) {
                     if (response.result.values[i][0].substring(substr).match(/\.(mp4|webm)$/)) {
-                        var imgs = document.createElement("iframe");
+                        var imgs = document.createElement("video");
                     } else {
                         var imgs = document.createElement("img");
                     }
@@ -336,7 +336,7 @@ function addImgs() {
                 LoadedImages += 1
                 if (LoadedImages > min && LoadedImages < max) {
                     if (response.result.values[i][0].substring(substr).match(/\.(mp4|webm)$/)) {
-                        var imgs = document.createElement("iframe");
+                        var imgs = document.createElement("video");
                     } else {
                         var imgs = document.createElement("img");
                     }
