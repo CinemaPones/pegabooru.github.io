@@ -53,10 +53,6 @@ file.addEventListener("change", ev => {
             url.innerText = data.data.link
             imglink = data.data.link
             document.getElementById("dirlink").value = data.data.link
-        } else if (1) {
-            img.src = document.getElementById("dirlink").value
-            url.innerText = document.getElementById("dirlink").value
-            imglink = document.getElementById("dirlink").value
         }
     })
 })
@@ -122,6 +118,8 @@ function update() { // Update Google Sheets
         img.src = document.getElementById("dirlink").value
         url.innerText = document.getElementById("dirlink").value
         imglink = document.getElementById("dirlink").value
+    } else {
+        notifyError("Invalid image link.")
     }
 
     // Append img link to google sheets
