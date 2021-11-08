@@ -126,7 +126,7 @@ function update() { // Update Google Sheets
         img.src = document.getElementById("dirlink").value
         url.innerText = document.getElementById("dirlink").value
         imglink = document.getElementById("dirlink").value
-    } else if (document.getElementById("dirlink").value.match(/\.(mp4|webm)$/) != null && document.getElementById("dirlink").value.match(/(.*e621.*)/) != null) {
+    } else if (document.getElementById("dirlink").value.match(/\.(mp4|webm)$/) != null && document.getElementById("dirlink").value.match(/(.*e621.*)/) != null && document.getElementById("dirlink").value.match(/(.*static.*)/) != null && document.getElementById("dirlink").value.match(/(.*net.*)/) != null) {
         img.src = 'https://i.imgur.com/NF2DGHI.png'
         url.innerText = document.getElementById("dirlink").value
         imglink = document.getElementById("dirlink").value
