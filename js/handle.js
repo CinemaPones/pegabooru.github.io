@@ -128,12 +128,16 @@ function update() { // Update Google Sheets
         valueInputOption: 'RAW',
     };
     
-    if (document.getElementById("dirlink").value.match(/\.(jpeg|apng|jpg|gif|png)$/) != null && isValidUrl(document.getElementById("dirlink").value)) {
+    if (document.getElementById("dirlink").value.match(/\.(jpeg|apng|jpg|gif|png)$/) != null && document.getElementById("dirlink").value.match(/(.*e621.*)/) != null && document.getElementById("dirlink").value.match(/(.*static.*)/) != null && document.getElementById("dirlink").value.match(/(.*net.*)/) != null) {
         img.src = document.getElementById("dirlink").value
         url.innerText = document.getElementById("dirlink").value
         imglink = document.getElementById("dirlink").value
     } else if (document.getElementById("dirlink").value.match(/\.(mp4|webm)$/) != null && document.getElementById("dirlink").value.match(/(.*e621.*)/) != null && document.getElementById("dirlink").value.match(/(.*static.*)/) != null && document.getElementById("dirlink").value.match(/(.*net.*)/) != null) {
         img.src = 'https://i.imgur.com/NF2DGHI.png'
+        url.innerText = document.getElementById("dirlink").value
+        imglink = document.getElementById("dirlink").value
+    } else if (document.getElementById("dirlink").value.match(/\.(jpeg|apng|jpg|gif|png)$/) != null && isValidUrl(document.getElementById("dirlink").value)) {
+        img.src = img.src = document.getElementById("dirlink").value
         url.innerText = document.getElementById("dirlink").value
         imglink = document.getElementById("dirlink").value
     } else if (document.getElementById("dirlink").value.match(/\.(mp4|webm)$/) != null && isValidUrl(document.getElementById("dirlink").value)) {
