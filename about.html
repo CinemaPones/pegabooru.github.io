@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>PegaBooru</title>
+        <link rel="icon" type="image/x-icon" href="favicon.ico" />
+        <link rel="stylesheet" href="css/style.css">
+        <div class="main">
+            <center>
+                <div class="header">
+                    <center>
+                        <div class="title">
+                            <h1 style="font-size:40px;font-family:verdana;color:rgb(86, 179, 255)"><b>PegaBooru</b></h1>
+                            <button id="home-button" onclick="window.location.href='index.html'" style="border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Home</b></button>
+                        </div>
+                    </center>
+                </div>
+            </center>
+        </div>
+    </head>
+
+    <script>
+        document.getElementById("home-button").addEventListener("mouseover", ev => {
+            document.getElementById("home-button").style.backgroundColor = '#8FB1E0'
+        })
+        document.getElementById("home-button").addEventListener("mouseout", ev => {
+            document.getElementById("home-button").style.backgroundColor = '#A1C7FF'
+        })
+    </script>
+
+</html>
