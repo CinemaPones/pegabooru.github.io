@@ -3,7 +3,7 @@ const img = document.getElementById("img")
 imglink = ''
 
 // Change button color on hover
-document.getElementById("signin-button").addEventListener("mouseover", ev => { // Sign in and out buttons
+document.getElementById("signin-button").addEventListener("mouseover", ev => { // About, sign in, sign out, home buttons
     document.getElementById("signin-button").style.backgroundColor = '#8FB1E0'
 })
 document.getElementById("signin-button").addEventListener("mouseout", ev => {
@@ -14,6 +14,12 @@ document.getElementById("signout-button").addEventListener("mouseover", ev => {
 })
 document.getElementById("signout-button").addEventListener("mouseout", ev => {
     document.getElementById("signout-button").style.backgroundColor = '#A1C7FF'
+})
+document.getElementById("about-button").addEventListener("mouseover", ev => {
+    document.getElementById("about-button").style.backgroundColor = '#8FB1E0'
+})
+document.getElementById("about-button").addEventListener("mouseout", ev => {
+    document.getElementById("about-button").style.backgroundColor = '#A1C7FF'
 })
 
 document.getElementById("submit-button").addEventListener("mouseover", ev => { // Submit button
