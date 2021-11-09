@@ -99,7 +99,13 @@ function isValidUrl(imgurl) {
     return xhr.status !== 404;
 }
 
-
+function appendImage(range) {
+    var request = gapi.client.sheets.spreadsheets.values.append(params, range);
+    request.then(function(response) {
+        console.log(response.result);
+        notify("Image submitted.");
+    });
+}
 
 ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 
@@ -130,11 +136,11 @@ function update() { // Update Google Sheets
     
     if (document.getElementById("dirlink").value.match(/\.(jpeg|apng|jpg|gif|png)$/) != null && document.getElementById("dirlink").value.match(/(.*e621.*)/) != null && document.getElementById("dirlink").value.match(/(.*static.*)/) != null && document.getElementById("dirlink").value.match(/(.*net.*)/) != null) {
         img.src = document.getElementById("dirlink").value
-        url.innerText = document.getElementById("dirlink").value
+        url.innerText = document.getElementById("dirlink").value // e621 exception
         imglink = document.getElementById("dirlink").value
     } else if (document.getElementById("dirlink").value.match(/\.(mp4|webm)$/) != null && document.getElementById("dirlink").value.match(/(.*e621.*)/) != null && document.getElementById("dirlink").value.match(/(.*static.*)/) != null && document.getElementById("dirlink").value.match(/(.*net.*)/) != null) {
         img.src = 'https://i.imgur.com/NF2DGHI.png'
-        url.innerText = document.getElementById("dirlink").value
+        url.innerText = document.getElementById("dirlink").value // e621 exception
         imglink = document.getElementById("dirlink").value
     } else if (document.getElementById("dirlink").value.match(/\.(jpeg|apng|jpg|gif|png)$/) != null && isValidUrl(document.getElementById("dirlink").value)) {
         img.src = img.src = document.getElementById("dirlink").value
@@ -171,41 +177,17 @@ function update() { // Update Google Sheets
     
     if (imglink != '') {
         if (nsfw) { // If NSFW
-            var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
-            request.then(function(response) {
-                console.log(response.result);
-                notify("Image submitted.");
-            });
+            appendImage(valueRangeBody);
         } else if (nsfwMale) { // If NSFW and MALE
-            var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyMale);
-            request.then(function(response) {
-                console.log(response.result);
-                notify("Image submitted.");
-            });
+            appendImage(valueRangeBodyMale);
         } else if (nsfwFemale) { // If NSFW and FEMALE
-            var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodyFemale);
-            request.then(function(response) {
-                console.log(response.result);
-                notify("Image submitted.");
-            });
+            appendImage(valueRangeBodyFemale);
         } else if (sfwMale) { // SFW and MALE
-            var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeMale);
-            request.then(function(response) {
-                console.log(response.result);
-                notify("Image submitted.");
-            });
+            appendImage(valueRangeBodySafeMale);
         } else if (sfwFemale) { // If SFW and FEMALE
-            var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafeFemale);
-            request.then(function(response) {
-                console.log(response.result);
-                notify("Image submitted.");
-            });
+            appendImage(valueRangeBodySafeFemale);
         } else if (sfw) { // If SFW
-            var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBodySafe);
-            request.then(function(response) {
-                console.log(response.result);
-                notify("Image submitted.");
-            });					
+            appendImage(valueRangeBodySafe);	
         }
     }
 }
