@@ -99,14 +99,6 @@ function isValidUrl(imgurl) {
     return xhr.status !== 404;
 }
 
-function appendImage(range) {
-    var request = gapi.client.sheets.spreadsheets.values.append(params, range);
-    request.then(function(response) {
-        console.log(response.result);
-        notify("Image submitted.");
-    });
-}
-
 ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 
 function update() { // Update Google Sheets
@@ -125,6 +117,14 @@ function update() { // Update Google Sheets
     sfw = (sfwOnly || sfwOnly2)
     sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
     sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
+    
+    function appendImage(range) {
+        var request = gapi.client.sheets.spreadsheets.values.append(params, range);
+        request.then(function(response) {
+            console.log(response.result);
+            notify("Image submitted.");
+        });
+    }
     
     var params = {
         spreadsheetId: ssID,
