@@ -119,20 +119,19 @@ function update() { // Update Google Sheets
     sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
     
     function appendImage(range) {
+        var params = {
+            spreadsheetId: ssID,
+
+            range: 'Sheet1!A:A',
+
+            valueInputOption: 'RAW',
+        };
         var request = gapi.client.sheets.spreadsheets.values.append(params, range);
         request.then(function(response) {
             console.log(response.result);
             notify("Image submitted.");
         });
     }
-    
-    var params = {
-        spreadsheetId: ssID,
-        
-        range: 'Sheet1!A:A',
-        
-        valueInputOption: 'RAW',
-    };
     
     if (document.getElementById("dirlink").value.match(/\.(jpeg|apng|jpg|gif|png)$/) != null && document.getElementById("dirlink").value.match(/(.*e621.*)/) != null && document.getElementById("dirlink").value.match(/(.*static.*)/) != null && document.getElementById("dirlink").value.match(/(.*net.*)/) != null) {
         img.src = document.getElementById("dirlink").value
