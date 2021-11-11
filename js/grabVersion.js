@@ -1,4 +1,21 @@
 ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
+
+function get() {
+    var params = {
+    // The ID of the spreadsheet to retrieve data from.
+    spreadsheetId: ssID,
+
+    // The A1 notation of the values to retrieve.
+    range: 'Sheet1',
+    };
+
+    var request = gapi.client.sheets.spreadsheets.values.get(params);
+    request.then(function(response) {
+    }, function(reason) {
+    console.error('error: ' + reason.result.error.message);
+    });
+}
+
 function version() {
     var params = {
         // The ID of the spreadsheet to retrieve data from.
@@ -45,7 +62,6 @@ function handleClientLoad() {
 function updateSignInStatus(isSignedIn) {
     if (isSignedIn) {
     get();
-    notify("Signed in.", '#00744d');
     }
 }
 
@@ -55,5 +71,4 @@ function handleSignInClick(event) {
 
 function handleSignOutClick(event) {
     gapi.auth2.getAuthInstance().signOut();
-    notify("Signed out.", '#747200');
 }
