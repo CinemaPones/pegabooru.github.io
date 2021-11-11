@@ -359,7 +359,7 @@ function addImgs() {
 function version() {
     var params = {
         // The ID of the spreadsheet to retrieve data from.
-        spreadsheetId: ssID,
+        spreadsheetId: '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE',
 
         // Spreadsheet range to read/write to.
         range: 'Sheet1!A:A',
