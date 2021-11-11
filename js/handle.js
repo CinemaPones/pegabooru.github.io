@@ -356,27 +356,6 @@ function addImgs() {
     });
 }
 
-function version() {
-    var params = {
-        // The ID of the spreadsheet to retrieve data from.
-        spreadsheetId: '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE',
-
-        // Spreadsheet range to read/write to.
-        range: 'Sheet1!A:A',
-    };
-
-    var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Images With Tags
-    request.then(function(response) {
-        // Grab version
-        var verText = document.getElementById('version');
-        verText.value = response.result.values[0][0];
-
-    }, function(reason) {
-        console.error('error: ' + reason.result.error.message);
-    });
-}
-version();
-
 function initClient() {
     var API_KEY = 'AIzaSyASNuJPFhwaL5q7Lyks5nvu9ijG2kA_Rto'; // Key
 
