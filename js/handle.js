@@ -78,7 +78,7 @@ function notify(msg, color) { // Normal
     setTimeout(() => {notifier.style.visibility='hidden'}, 5000);
 }
 
-function isValidUrl(imgurl) {
+function isValidUrl(imgurl) { // Returns true if a url is valid
     var xhr = new XMLHttpRequest();
     xhr.open('GET', imgurl, false);
     xhr.send();
@@ -355,6 +355,27 @@ function addImgs() {
         console.error('error: ' + reason.result.error.message);
     });
 }
+
+function version() {
+    var params = {
+        // The ID of the spreadsheet to retrieve data from.
+        spreadsheetId: ssID,
+
+        // Spreadsheet range to read/write to.
+        range: 'Sheet1!A:A',
+    };
+
+    var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Images With Tags
+    request.then(function(response) {
+        // Grab version
+        var verText = document.getElementById('version');
+        verText.value = response.result.values[0][0];
+
+    }, function(reason) {
+        console.error('error: ' + reason.result.error.message);
+    });
+}
+version();
 
 function initClient() {
     var API_KEY = 'AIzaSyASNuJPFhwaL5q7Lyks5nvu9ijG2kA_Rto'; // Key
