@@ -69,23 +69,10 @@ document.getElementById("imgsize").addEventListener("change", ev => {
 
 
 // Notifications
-function notify(msg) { // Normal
+function notify(msg, color) { // Normal
     var notifier = document.getElementById("notify");
+    notifier.style.backgroundColor = color
     var notifierText = document.getElementById("notifyText");
-    notifierText.innerText = msg;
-    notifier.style.visibility = 'visible';
-    setTimeout(() => {notifier.style.visibility='hidden'}, 5000);
-}
-function notifyYellow(msg) { // Normal
-    var notifier = document.getElementById("notifyYellow");
-    var notifierText = document.getElementById("notifyYellowText");
-    notifierText.innerText = msg;
-    notifier.style.visibility = 'visible';
-    setTimeout(() => {notifier.style.visibility='hidden'}, 5000);
-}
-function error(msg) { // Notify Error
-    var notifier = document.getElementById("notifyError");
-    var notifierText = document.getElementById("notifyErrorText");
     notifierText.innerText = msg;
     notifier.style.visibility = 'visible';
     setTimeout(() => {notifier.style.visibility='hidden'}, 5000);
@@ -100,6 +87,21 @@ function isValidUrl(imgurl) {
 }
 
 ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
+
+function appendImage(range) { // Append image to sheet
+    var params = {
+        spreadsheetId: ssID,
+
+        range: 'Sheet1!A:A',
+
+        valueInputOption: 'RAW',
+    };
+    var request = gapi.client.sheets.spreadsheets.values.append(params, range);
+    request.then(function(response) {
+        console.log(response.result);
+        notify("Image submitted.", '#00744d');
+    });
+}
 
 function update() { // Update Google Sheets
     nsfwCheck = document.getElementById("nsfwCheck");
@@ -118,21 +120,6 @@ function update() { // Update Google Sheets
     sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
     sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
     
-    function appendImage(range) {
-        var params = {
-            spreadsheetId: ssID,
-
-            range: 'Sheet1!A:A',
-
-            valueInputOption: 'RAW',
-        };
-        var request = gapi.client.sheets.spreadsheets.values.append(params, range);
-        request.then(function(response) {
-            console.log(response.result);
-            notify("Image submitted.");
-        });
-    }
-    
     if (document.getElementById("dirlink").value.match(/\.(jpeg|apng|jpg|gif|png)$/) != null && document.getElementById("dirlink").value.match(/(.*e621.*)/) != null && document.getElementById("dirlink").value.match(/(.*static.*)/) != null && document.getElementById("dirlink").value.match(/(.*net.*)/) != null) {
         img.src = document.getElementById("dirlink").value
         url.innerText = document.getElementById("dirlink").value // e621 exception
@@ -150,7 +137,7 @@ function update() { // Update Google Sheets
         url.innerText = document.getElementById("dirlink").value
         imglink = document.getElementById("dirlink").value
     } else {
-        error("Invalid image link.");
+        notify("Invalid image link.", '#740000');
     }
 
     // Append img link to google sheets
@@ -394,7 +381,7 @@ function handleClientLoad() {
 function updateSignInStatus(isSignedIn) {
     if (isSignedIn) {
     get();
-    notify("Signed in.");
+    notify("Signed in.", '#00744d');
     }
 }
 
@@ -404,5 +391,5 @@ function handleSignInClick(event) {
 
 function handleSignOutClick(event) {
     gapi.auth2.getAuthInstance().signOut();
-    notifyYellow("Signed out.");
+    notify("Signed out.", '#747200');
 }
