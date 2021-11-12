@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>PegaBooru</title>
+        <link rel="icon" type="image/x-icon" href="favicon.ico" />
+        <link rel="stylesheet" href="css/style.css">
+        <div class="main">
+            <center>
+                <div class="header">
+                    <center>
+                        <div class="title">
+                            <h1 style="font-size:40px;font-family:verdana;color:rgb(86, 179, 255)"><b>PegaBooru</b></h1>
+                            <button id="home-button" onclick="window.location.href='index.html'" style="border:0px;height:40px;width:100px;border-radius:10px;background-color:rgb(161, 199, 255)"><b style="font-size:20px;color:rgb(56, 120, 172)">Home</b></button>
+                        </div>
+                    </center>
+                </div>
+                <br>
+                <div class="title" style="width:75%;height:auto;padding:3%">
+                    <head><b style="font-size:40px;font-family:verdana;color:rgb(86, 179, 255)">Welcome to PegaBooru</b></head>
+                    <p style="font-size:20px;font-family:verdana;color:rgb(65, 134, 190)">
+                        The purpose of this website is to provide anypony a place to keep their pony content in one organized place.
+                    </p>
+                    <br>
+                    <br>
+                    <br>
+                    <head><b style="font-size:30px;font-family:verdana;color:rgb(86, 179, 255)">Rules</b></head>
+                    <p style="font-size:20px;font-family:verdana;color:rgb(65, 134, 190)">
+                        The only rules for post submissions are to keep them legal and use reasonable tagging.<br><br><b>*If the post is NSFW use the NSFW tag.<br>*If the post only includes males use male tag.<br>*If the post only includes females use female tag.<br>*If the post contains both male and female select both.</b>
+                    </p>
+                    <br>
+                    <br>
+                    <br>
+                    <head><b style="font-size:30px;font-family:verdana;color:rgb(86, 179, 255)">Developed by Simon Pegasus</b></head>
+                    <p style="font-size:20px;font-family:verdana;color:rgb(65, 134, 190)">
+                        Have any questions or reports of illegal content? Contact me at <b>SimonPegasus#1546</b> on Discord.
+                    </p>
+                    <br>
+                    <br>
+                    <br>
+                    <head><b><p id='version' style="font-size:20px;font-family:verdana;color:rgb(65, 134, 190)"></p></b></head>
+                </div>
+                <br>
+            </center>
+        </div>
+    </head>
+
+    <script>
+        document.getElementById("home-button").addEventListener("mouseover", ev => {
+            document.getElementById("home-button").style.backgroundColor = '#8FB1E0'
+        })
+        document.getElementById("home-button").addEventListener("mouseout", ev => {
+            document.getElementById("home-button").style.backgroundColor = '#A1C7FF'
+        })
+    </script>
+
+    <script type="text/javascript" src="js/grabVersion.js"></script>
+
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+
+</html>
