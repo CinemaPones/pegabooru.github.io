@@ -45,8 +45,6 @@ function handleClientLoad() {
 
 function updateSignInStatus(isSignedIn) {
     if (isSignedIn) {
-    get();
-    notify("Signed in.", '#00744d');
     }
 }
 
