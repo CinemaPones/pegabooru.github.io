@@ -45,7 +45,7 @@ function version() {
         spreadsheetId: '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE',
 
         // Spreadsheet range to read/write to.
-        range: 'Sheet1!A:A',
+        range: 'version!A:A',
     };
 
     var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Images With Tags
