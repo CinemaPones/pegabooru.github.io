@@ -19,7 +19,7 @@ function version() {
         console.error('error: ' + reason.result.error.message);
     });
 }
-setTimeout(version, 5000);
+setTimeout(version, 4000);
 
 function initClient() {
     var API_KEY = 'AIzaSyASNuJPFhwaL5q7Lyks5nvu9ijG2kA_Rto'; // Key
