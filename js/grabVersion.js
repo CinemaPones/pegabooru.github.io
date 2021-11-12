@@ -29,7 +29,8 @@ function version() {
     request.then(function(response) {
         // Grab version
         var verText = document.getElementById('version');
-        verText.value = response.result.values[0][0];
+        verText.innerHTML = response.result.values[0][0];
+        console.log(response.result.values[0][0]);
 
     }, function(reason) {
         console.error('error: ' + reason.result.error.message);
