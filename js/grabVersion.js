@@ -34,6 +34,7 @@ function handleSignInClick(event) {
     gapi.auth2.getAuthInstance().signIn();
 }
 
+
 function handleSignOutClick(event) {
     gapi.auth2.getAuthInstance().signOut();
     notify("Signed out.", '#747200');
