@@ -11,9 +11,11 @@ function version() {
     var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Images With Tags
     request.then(function(response) {
         // Grab version
-        var verText = document.getElementById('version');
-        verText.innerHTML = response.result.values[0][0];
-        console.log(response.result.values[0][0]);
+        while (verText.innerHTML != response.result.values[0][0]) {
+            var verText = document.getElementById('version');
+            verText.innerHTML = response.result.values[0][0];
+            console.log(response.result.values[0][0]);            
+        }
 
     }, function(reason) {
         console.error('error: ' + reason.result.error.message);
