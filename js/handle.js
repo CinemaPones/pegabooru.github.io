@@ -56,9 +56,6 @@ file.addEventListener("change", ev => {
         }
     })
 })
-document.getElementById("imgsize").addEventListener("change", ev => {
-    imgsize = document.getElementById("imgsize").value+'%'
-})
 
 
 
@@ -195,7 +192,6 @@ function addImgsAll() { // Load all images with specified tags
         let i = 0;
         let LoadedImages = 0;
         while ((i < response.result.values.length) && (LoadedImages > min && LoadedImages < max)) {
-            console.log('test')
             if (comparelist(response.result.values[i][1].split(', '), query, min_query)){
                 console.log('tags of post: '+response.result.values[i][1])
                 if (response.result.values[i][0].match(/\.(mp4|webm|mov)$/)) { // To add support for another file extension that displays on a website, add |extensionhere after the last extension.
