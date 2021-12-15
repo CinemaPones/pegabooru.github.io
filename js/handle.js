@@ -165,14 +165,16 @@ function addImgsAll() { // Load all images with specified tags
             query = []
         }
 
-        min = parseInt(document.getElementById("from").value) - 1
-        max = parseInt(document.getElementById("to").value) + 1
-        if (isNaN(min)) {
-            min = -1
-        }
-        if (isNaN(max)) {
-            max = 9999999
-        }
+        //min = parseInt(document.getElementById("from").value) - 1
+        //max = parseInt(document.getElementById("to").value) + 1
+        //if (isNaN(min)) {
+        //    min = -1
+        //}
+        //if (isNaN(max)) {
+        //    max = 9999999
+        //}
+        min = -1
+        max = 9999999
 
         let i = 0;
         let LoadedImages = 0;
