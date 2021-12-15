@@ -81,6 +81,7 @@ function isValidUrl(imgurl) { // Returns true if a url is valid
 }
 
 function comparelist(taglist, list, min_list){
+    console.log('comparelist() called')
     for (var a of list) {
         if (!(taglist.includes(a))){
             return false
@@ -182,6 +183,10 @@ function addImgsAll() { // Load all images with specified tags
         if (query[0] == "") {
             query = []
         }
+
+        console.log('includes: '+query)
+        console.log('excludes: '+min_query)
+        console.log('tags of post: '+response.result.values[i][1].split(', '))
 
         min = parseInt(document.getElementById("from").value) - 1
         max = parseInt(document.getElementById("to").value) + 1
