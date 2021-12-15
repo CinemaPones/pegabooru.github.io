@@ -141,22 +141,6 @@ function update() { // Update Google Sheets
     }
 }
 
-function get() { // IGNORE THIS
-    var params = {
-    // The ID of the spreadsheet to retrieve data from.
-    spreadsheetId: ssID,
-
-    // The A1 notation of the values to retrieve.
-    range: 'Sheet1',
-    };
-
-    var request = gapi.client.sheets.spreadsheets.values.get(params);
-    request.then(function(response) {
-    }, function(reason) {
-    console.error('error: ' + reason.result.error.message);
-    });
-}
-
 function addImgsAll() { // Load all images with specified tags
     
     document.getElementById('body').innerHTML = "";
@@ -193,7 +177,6 @@ function addImgsAll() { // Load all images with specified tags
         let LoadedImages = 0;
         while ((i < response.result.values.length) && (LoadedImages > min && LoadedImages < max)) {
             if (comparelist(response.result.values[i][1].split(', '), query, min_query)){
-                console.log('tags of post: '+response.result.values[i][1])
                 if (response.result.values[i][0].match(/\.(mp4|webm|mov)$/)) { // To add support for another file extension that displays on a website, add |extensionhere after the last extension.
                     var imgs = document.createElement("video");
                     imgs.setAttribute("controls","controls")
@@ -204,7 +187,7 @@ function addImgsAll() { // Load all images with specified tags
                 var src = document.getElementById("body"); 
                 imgs.src = response.result.values[i][0];
                 src.appendChild(imgs);
-                imgs.style.width = '200px';
+                imgs.style.width = '300px';
                 imgs.style.border = "5px";
                 LoadedImages += 1
             }
@@ -244,7 +227,6 @@ function handleClientLoad() {
 
 function updateSignInStatus(isSignedIn) {
     if (isSignedIn) {
-    get();
     notify("Signed in.", '#00744d');
     }
 }
