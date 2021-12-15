@@ -81,7 +81,6 @@ function isValidUrl(imgurl) { // Returns true if a url is valid
 }
 
 function comparelist(taglist, list, min_list){
-    console.log('comparelist() called')
     for (var a of list) {
         if (!(taglist.includes(a))){
             return false
@@ -173,8 +172,6 @@ function addImgsAll() { // Load all images with specified tags
     request.then(function(response) {
 
         var query = document.getElementById('tags').value.split(', ');
-        console.log('qvalue')
-        console.log(document.getElementById('tags').value)
         var min_query = [];
         for(let x = 0; x < query.length; x++){
             if (query[x][0] == '-') {
@@ -185,11 +182,6 @@ function addImgsAll() { // Load all images with specified tags
         if (query[0] == "") {
             query = []
         }
-
-        console.log('query')
-        console.log(query)
-        console.log('min_query')
-        console.log(min_query)
 
         min = parseInt(document.getElementById("from").value) - 1
         max = parseInt(document.getElementById("to").value) + 1
@@ -202,9 +194,9 @@ function addImgsAll() { // Load all images with specified tags
 
         let i = 0;
         let LoadedImages = 0;
-        while (LoadedImages > min && LoadedImages < max) {
+        while ((i < response.result.values.length) && (LoadedImages > min && LoadedImages < max)) {
             if (comparelist(response.result.values[i][1].split(', '), query, min_query)){
-                console.log('tags of post: '+response.result.values[i][1].split(', '))
+                console.log('tags of post: '+response.result.values[i][1])
                 if (response.result.values[i][0].match(/\.(mp4|webm|mov)$/)) { // To add support for another file extension that displays on a website, add |extensionhere after the last extension.
                     var imgs = document.createElement("video");
                     imgs.setAttribute("controls","controls")
