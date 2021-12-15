@@ -184,8 +184,10 @@ function addImgsAll() { // Load all images with specified tags
             query = []
         }
 
-        console.log('includes: '+query)
-        console.log('excludes: '+min_query)
+        console.log('query')
+        console.log(query)
+        console.log('min_query')
+        console.log(min_query)
 
         min = parseInt(document.getElementById("from").value) - 1
         max = parseInt(document.getElementById("to").value) + 1
