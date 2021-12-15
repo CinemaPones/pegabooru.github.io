@@ -177,24 +177,22 @@ function addImgsAll() { // Load all images with specified tags
         let i = 0;
         let LoadedImages = 0;
         while (i < response.result.values.length) {
-            if (LoadedImages > min && LoadedImages < max) {
-                if (comparelist(response.result.values[i][1].split(', '), query, min_query)){
-                    if (response.result.values[i][0].match(/\.(mp4|webm|mov)$/)) { // To add support for another file extension that displays on a website, add |extensionhere after the last extension.
-                        var imgs = document.createElement("video");
-                        imgs.setAttribute("controls","controls")
-                        imgs.setAttribute("loop","true")
-                    } else {
-                        var imgs = document.createElement("img");
-                    }
-                    var src = document.getElementById("body"); 
-                    imgs.src = response.result.values[i][0];
-                    src.appendChild(imgs);
-                    imgs.style.width = '300px';
-                    imgs.style.border = "5px";
-                    LoadedImages += 1
+            if (comparelist(response.result.values[i][1].split(', '), query, min_query)){
+                if (response.result.values[i][0].match(/\.(mp4|webm|mov)$/)) { // To add support for another file extension that displays on a website, add |extensionhere after the last extension.
+                    var imgs = document.createElement("video");
+                    imgs.setAttribute("controls","controls")
+                    imgs.setAttribute("loop","true")
+                } else {
+                    var imgs = document.createElement("img");
                 }
-                i++;
+                var src = document.getElementById("body"); 
+                imgs.src = response.result.values[i][0];
+                src.appendChild(imgs);
+                imgs.style.width = '300px';
+                imgs.style.border = "5px";
+                LoadedImages += 1
             }
+            i++;
         }
     }, function(reason) { // Obviously just print the error if there is one
         console.error('error: ' + reason.result.error.message);
