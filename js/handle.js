@@ -112,7 +112,7 @@ function appendImage(range) { // Append image to sheet
 }
 
 function update() { // Update Google Sheets
-    tags = document.getElementById("tags");
+    tags = document.getElementById("tags").value;
     
     if (document.getElementById("dirlink").value.match(/\.(jpeg|apng|jpg|gif|png)$/) != null && document.getElementById("dirlink").value.match(/(.*e621.*)/) != null && document.getElementById("dirlink").value.match(/(.*static.*)/) != null && document.getElementById("dirlink").value.match(/(.*net.*)/) != null) {
         img.src = document.getElementById("dirlink").value
