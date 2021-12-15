@@ -173,6 +173,8 @@ function addImgsAll() { // Load all images with specified tags
     request.then(function(response) {
 
         var query = document.getElementById('tags').value.split(', ');
+        console.log('qvalue')
+        console.log(document.getElementById('tags').value)
         var min_query = [];
         for(let x = 0; x < query.length; x++){
             if (query[x][0] == '-') {
