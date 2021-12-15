@@ -29,17 +29,11 @@ document.getElementById("submit-button").addEventListener("mouseout", ev => {
     document.getElementById("submit-button").style.backgroundColor = '#7881F8'
 })
 
-document.getElementById("update-button").addEventListener("mouseover", ev => { // Load image buttons
+document.getElementById("update-button").addEventListener("mouseover", ev => { // Load image button
     document.getElementById("update-button").style.backgroundColor = '#8FB1E0'
 })
 document.getElementById("update-button").addEventListener("mouseout", ev => {
     document.getElementById("update-button").style.backgroundColor = '#A1C7FF'
-})
-document.getElementById("update-button2").addEventListener("mouseover", ev => {
-    document.getElementById("update-button2").style.backgroundColor = '#8FB1E0'
-})
-document.getElementById("update-button2").addEventListener("mouseout", ev => {
-    document.getElementById("update-button2").style.backgroundColor = '#A1C7FF'
 })
 
 
@@ -86,13 +80,27 @@ function isValidUrl(imgurl) { // Returns true if a url is valid
     return xhr.status !== 404;
 }
 
+function comparelist(taglist, list, min_list){
+    for (var a of list) {
+        if (!(taglist.includes(a))){
+            return false
+        }
+    }
+    for (var b of min_list) {
+        if (taglist.includes(b)) {
+            return false
+        }
+    }
+    return true
+}
+
 ssID = '1zJrDzjWoE_n1-K206jGDQe_wyRN804k14F0kQa89NNE'
 
 function appendImage(range) { // Append image to sheet
     var params = {
         spreadsheetId: ssID,
 
-        range: 'Sheet1!A:A',
+        range: 'Sheet1!A:B',
 
         valueInputOption: 'RAW',
     };
@@ -104,21 +112,7 @@ function appendImage(range) { // Append image to sheet
 }
 
 function update() { // Update Google Sheets
-    nsfwCheck = document.getElementById("nsfwCheck");
-    maleCheck = document.getElementById("maleCheck");
-    femaleCheck = document.getElementById("femaleCheck");
-
-    nsfwOnly = (nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
-    nsfwOnly2 = (nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
-    nsfw = (nsfwOnly || nsfwOnly2)
-    nsfwMale = (nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
-    nsfwFemale = (nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
-
-    sfwOnly = (!nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
-    sfwOnly2 = (!nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
-    sfw = (sfwOnly || sfwOnly2)
-    sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
-    sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
+    tags = document.getElementById("tags");
     
     if (document.getElementById("dirlink").value.match(/\.(jpeg|apng|jpg|gif|png)$/) != null && document.getElementById("dirlink").value.match(/(.*e621.*)/) != null && document.getElementById("dirlink").value.match(/(.*static.*)/) != null && document.getElementById("dirlink").value.match(/(.*net.*)/) != null) {
         img.src = document.getElementById("dirlink").value
@@ -141,44 +135,16 @@ function update() { // Update Google Sheets
     }
 
     // Append img link to google sheets
-    var valueRangeBody = { // For NSFW
-        "values": [["NSFW "+imglink]]
-    };
-    var valueRangeBodyMale = { // For NSFW+MALE
-        "values": [["NSFW MALE "+imglink]]
-    };
-    var valueRangeBodyFemale = { // For NSFW+FEMALE
-        "values": [["NSFW FEMALE "+imglink]]
-    };
-    
-    var valueRangeBodySafe = { // For SFW
-        "values": [["SFW "+imglink]]
-    };
-    var valueRangeBodySafeMale = { // For SFW+MALE
-        "values": [["SFW MALE "+imglink]]
-    };
-    var valueRangeBodySafeFemale = { // For SFW+FEMALE
-        "values": [["SFW FEMALE "+imglink]]
+    var valueRangeBody = {
+        "values": [[imglink, tags]]
     };
     
     if (imglink != '') {
-        if (nsfw) { // If NSFW
-            appendImage(valueRangeBody);
-        } else if (nsfwMale) { // If NSFW and MALE
-            appendImage(valueRangeBodyMale);
-        } else if (nsfwFemale) { // If NSFW and FEMALE
-            appendImage(valueRangeBodyFemale);
-        } else if (sfwMale) { // SFW and MALE
-            appendImage(valueRangeBodySafeMale);
-        } else if (sfwFemale) { // If SFW and FEMALE
-            appendImage(valueRangeBodySafeFemale);
-        } else if (sfw) { // If SFW
-            appendImage(valueRangeBodySafe);	
-        }
+        appendImage(valueRangeBody);
     }
 }
 
-function get() {
+function get() { // IGNORE THIS
     var params = {
     // The ID of the spreadsheet to retrieve data from.
     spreadsheetId: ssID,
@@ -194,20 +160,29 @@ function get() {
     });
 }
 
-function addImgsAll() {
+function addImgsAll() { // Load all images with specified tags
+    
     document.getElementById('body').innerHTML = "";
     var params = {
-        // The ID of the spreadsheet to retrieve data from.
         spreadsheetId: ssID,
-
-        // Spreadsheet range to read/write to.
-        range: 'Sheet1!A:A',
+        range: 'Sheet1!A:B',
     };
 
-    var request = gapi.client.sheets.spreadsheets.values.get(params); // Load All Images
+    var request = gapi.client.sheets.spreadsheets.values.get(params);
     request.then(function(response) {
-        let i = 0;
-        LoadedImages = 0
+
+        var query = document.getElementById('tags').value.split(', ');
+        var min_query = [];
+        for(let x = 0; x < query.length; x++){
+            if (query[x][0] == '-') {
+                min_query.push(query[x].substring(1));
+                query.splice(x, 1);
+            }
+        }
+        if (query[0] == "") {
+            query = []
+        }
+
         min = parseInt(document.getElementById("from").value) - 1
         max = parseInt(document.getElementById("to").value) + 1
         if (isNaN(min)) {
@@ -216,145 +191,36 @@ function addImgsAll() {
         if (isNaN(max)) {
             max = 9999999
         }
-        while (i < response.result.values.length) {
-            // Add images to website
 
-            nsfwCheck = document.getElementById("nsfwCheck");
-            maleCheck = document.getElementById("maleCheck");
-            femaleCheck = document.getElementById("femaleCheck");
-
-            nsfwOnly = (nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
-            nsfwOnly2 = (nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
-            nsfw = (nsfwOnly || nsfwOnly2)
-            nsfwMale = (nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
-            nsfwFemale = (nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
-
-            sfwOnly = (!nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
-            sfwOnly2 = (!nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
-            sfw = (sfwOnly || sfwOnly2)
-            sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
-            sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
-
-            function imgHandle(substr) {
-                LoadedImages += 1
-                if (LoadedImages > min && LoadedImages < max) {
-                    if (response.result.values[i][0].substring(substr).match(/\.(mp4|webm)$/)) {
-                        var imgs = document.createElement("video");
-                        imgs.setAttribute("controls","controls")
-                        imgs.setAttribute("loop","true")
-                    } else {
-                        var imgs = document.createElement("img");
-                    }
-                    var src = document.getElementById("body");
-                    imgs.src = response.result.values[i][0].substring(substr);
-                    src.appendChild(imgs);
-                    imgs.style.width = imgsize;
-                    imgs.style.height = 'auto';
-                }
-            }
-            if (response.result.values[i][0] != null) {
-                if (response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'h') { // Safe
-                    imgHandle(4);
-                } else if (response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'M') { // Safe Male
-                    imgHandle(9);
-                } else if (response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'F') { // Safe Female
-                    imgHandle(11);
-                } else if (response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') { // NSFW
-                    imgHandle(5);
-                } else if (response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'M') { // NSFW Male
-                    imgHandle(10);
-                } else if (response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') { // NSFW Female
-                    imgHandle(12);
-                }
-            }
-
-            i++;
-        }
-    }, function(reason) {
-        console.error('error: ' + reason.result.error.message);
-    });
-}
-
-function addImgs() {
-    document.getElementById('body').innerHTML = "";
-    var params = {
-        // The ID of the spreadsheet to retrieve data from.
-        spreadsheetId: ssID,
-
-        // Spreadsheet range to read/write to.
-        range: 'Sheet1!A:A',
-    };
-
-    var request = gapi.client.sheets.spreadsheets.values.get(params); // Load Images With Tags
-    request.then(function(response) {
         let i = 0;
-        LoadedImages = 0
-        min = parseInt(document.getElementById("from").value) - 1
-        max = parseInt(document.getElementById("to").value) + 1
-        if (isNaN(min)) {
-            min = 0
-        }
-        if (isNaN(max)) {
-            max = 9999999
-        }
-        while (i < response.result.values.length) {
-            // Add images to website
-
-            nsfwCheck = document.getElementById("nsfwCheck");
-            maleCheck = document.getElementById("maleCheck");
-            femaleCheck = document.getElementById("femaleCheck");
-
-            nsfwOnly = (nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
-            nsfwOnly2 = (nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
-            nsfw = (nsfwOnly || nsfwOnly2)
-            nsfwMale = (nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
-            nsfwFemale = (nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
-
-            sfwOnly = (!nsfwCheck.checked && !maleCheck.checked && !femaleCheck.checked)
-            sfwOnly2 = (!nsfwCheck.checked && maleCheck.checked && femaleCheck.checked)
-            sfw = (sfwOnly || sfwOnly2)
-            sfwMale = (!nsfwCheck.checked && maleCheck.checked && !femaleCheck.checked)
-            sfwFemale = (!nsfwCheck.checked && !maleCheck.checked && femaleCheck.checked)
-
-            function imgHandle(substr) {
-                LoadedImages += 1
-                if (LoadedImages > min && LoadedImages < max) {
-                    if (response.result.values[i][0].substring(substr).match(/\.(mp4|webm)$/)) {
-                        var imgs = document.createElement("video");
-                        imgs.setAttribute("controls","controls")
-                        imgs.setAttribute("loop","true")
-                    } else {
-                        var imgs = document.createElement("img");
-                    }
-                    var src = document.getElementById("body");
-                    imgs.src = response.result.values[i][0].substring(substr);
-                    src.appendChild(imgs);
-                    imgs.style.width = imgsize;
-                    imgs.style.height = 'auto';
+        let LoadedImages = 0;
+        while (LoadedImages > min && LoadedImages < max) {
+            if (comparelist(response.result.values[i][1].split(', '), query, min_query)){
+                if (response.result.values[i][0].match(/\.(mp4|webm|mov)$/)) { // To add support for another file extension that displays on a website, add |extensionhere after the last extension.
+                    var imgs = document.createElement("video");
+                    imgs.setAttribute("controls","controls")
+                    imgs.setAttribute("loop","true")
+                } else {
+                    var imgs = document.createElement("img");
                 }
+                var src = document.getElementById("body"); 
+                imgs.src = response.result.values[i][0];
+                src.appendChild(imgs);
+                imgs.style.width = imgsize+'px';
+                imgs.style.border = "5px";
+                LoadedImages += 1
             }
-
-            if (nsfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'h') { // nsfw
-                imgHandle(5);
-            } else if (nsfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'M') { // nsfwMale
-                imgHandle(10);
-            } else if (nsfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'N' && response.result.values[i][0].charAt(5) == 'F') { // nsfwFemale
-                imgHandle(12);
-            } else if (sfw && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'h') { // sfw
-                imgHandle(4);
-            } else if (sfwMale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'M') { // sfwMale
-                imgHandle(9);
-            } else if (sfwFemale && response.result.values[i][0] != null && response.result.values[i][0].charAt(0) == 'S' && response.result.values[i][0].charAt(4) == 'F') { // sfwFemale
-                imgHandle(11);
-            }
-
-            i++;
+            i++; 
+            
         }
-
-    }, function(reason) {
+    }, function(reason) { // Obviously just print the error if there is one
         console.error('error: ' + reason.result.error.message);
     });
 }
+
+
+
+
 
 function initClient() {
     var API_KEY = 'AIzaSyASNuJPFhwaL5q7Lyks5nvu9ijG2kA_Rto'; // Key
