@@ -208,7 +208,7 @@ function addImgsAll() { // Load all images with specified tags
                 var src = document.getElementById("body"); 
                 imgs.src = response.result.values[i][0];
                 src.appendChild(imgs);
-                imgs.style.width = '450px';
+                imgs.style.width = '200px';
                 imgs.style.border = "5px";
                 LoadedImages += 1
             }
