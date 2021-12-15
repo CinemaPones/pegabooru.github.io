@@ -186,7 +186,6 @@ function addImgsAll() { // Load all images with specified tags
 
         console.log('includes: '+query)
         console.log('excludes: '+min_query)
-        console.log('tags of post: '+response.result.values[i][1].split(', '))
 
         min = parseInt(document.getElementById("from").value) - 1
         max = parseInt(document.getElementById("to").value) + 1
@@ -201,6 +200,7 @@ function addImgsAll() { // Load all images with specified tags
         let LoadedImages = 0;
         while (LoadedImages > min && LoadedImages < max) {
             if (comparelist(response.result.values[i][1].split(', '), query, min_query)){
+                console.log('tags of post: '+response.result.values[i][1].split(', '))
                 if (response.result.values[i][0].match(/\.(mp4|webm|mov)$/)) { // To add support for another file extension that displays on a website, add |extensionhere after the last extension.
                     var imgs = document.createElement("video");
                     imgs.setAttribute("controls","controls")
