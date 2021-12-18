@@ -119,6 +119,14 @@ function update() { // Update Google Sheets
         img.src = 'https://i.imgur.com/NF2DGHI.png'
         url.innerText = document.getElementById("dirlink").value // e621 exception
         imglink = document.getElementById("dirlink").value
+    if (document.getElementById("dirlink").value.match(/\.(jpeg|apng|jpg|gif|png)$/) != null && document.getElementById("dirlink").value.match(/(.*cdn.discordapp.com*)/) != null) {
+        img.src = document.getElementById("dirlink").value
+        url.innerText = document.getElementById("dirlink").value // discord exception
+        imglink = document.getElementById("dirlink").value
+    } else if (document.getElementById("dirlink").value.match(/\.(mp4|webm)$/) != null && document.getElementById("dirlink").value.match(/(.*cdn.discordapp.com*)/) != null) {
+        img.src = 'https://i.imgur.com/NF2DGHI.png'
+        url.innerText = document.getElementById("dirlink").value // discord exception
+        imglink = document.getElementById("dirlink").value
     } else if (document.getElementById("dirlink").value.match(/\.(jpeg|apng|jpg|gif|png)$/) != null && isValidUrl(document.getElementById("dirlink").value)) {
         img.src = img.src = document.getElementById("dirlink").value
         url.innerText = document.getElementById("dirlink").value
